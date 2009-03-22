@@ -1,0 +1,460 @@
+
+2008-11-26 yaptest v0.2.1
+
+* Added yaptest-ssh-keyscan.pl to gather SSH host keys
+* Lots more parsing of enum4linux to support the 'Windows info'
+  feature of YaptestFE.
+* Added yaptest-parse-dcetest.pl to parse windows hostnames
+* yaptest-db-ips.sh now checks if you're root before running.
+* yaptest-parse-ntpq.pl parsed NTP OS disclosure issue and stores
+  OS in host_info table.
+* Timeout for nmap UDP scans can be set with yaptest-config.pl
+* Changed issue name insec_proto_rdp to rdp_mitm
+* Added yaptest-smb-version.pl to get version info via 
+  metasploit's auxiliary/scanner/smb/version module.
+* Bug fix: "yaptest-ports.pl query --test_area foo" works
+* API change: insert_issue will now add ports into database if
+              and only if the host already in the database.
+* API change: insert_port will not add new hosts
+* API change: ::PORT:: can be specified in output file even if
+              it wasn't specified in the command.
+* Amap is now used to find SSL ports in addition to nmap.
+* Added yaptest-nessus3.pl and yaptest-nessus-wrapper.pl to
+  to run Nessus v3 against hosts in backend database.
+* Netmask is now parsed from ICMP and SNMP data and stored in the
+  interfaces tables.  This will support better network maps in
+  YaptestFE in future.
+* Added yaptest-openvas.pl to run OpenVAS against hosts in the
+  backend datbases.
+* Output of nmap is parsed to identify hosts support SSHv1.
+* Added yaptest-ldapuserenum.pl to run ldapuserenum.py against
+  LDAP servers.  Usernames are parsed into the database.
+* Backgrounded nikto scans because the take a long time
+* yaptest-nmap-udp.pl now additionally tests all open UDP ports
+  to make double sure we have version info for each one.
+
+2008-10-31 yaptest v0.2.0
+
+* yaptest-dns.pl now tries additional DNS queries
+  Bind version disclosure issue parsed automatically
+* yaptest-kcmsd-fileread.pl added to get credential information 
+  from hosts via metasploit 2 kcmsd exploit.
+* yaptest-config.pl must be used set "exploit_ok = yes"
+  before exploitation scripts will run (rexd, kcmsd)
+* yaptest-config.pl must be used set "unsafe_ok = yes"
+  any unsafe exploits / checks are run (ms08-067)
+* yaptest-parse-rpcinfo.pl inserts additional issues
+* Added yaptest-udp-proto-scanner.pl to run udp-proto-scanner
+  for better UDP service detection
+* yaptest-nxscan.pl automatically parses issues
+* Bug Fix: "yaptest-progress.pl reset" works for port-related
+           progress as well as host-related progress.
+* yaptest-telnet-fuser.pl changed to use metasploit 3.  Now
+  automatically grabs credentials when possible.
+
+2008-10-26 yaptest v0.1.9
+
+* Created "modules" directory to make ebuild creation easier
+* yaptest-parse-yapscan-tcp.pl now parses TTL info
+* yaptest-parse-traceroute.pl now parses hop number
+* Bug Fix: Negative hop number from yaptest-parse-ping-r.pl
+* yaptest-parse-bannergrab.pl parses usernames guessed by
+  the "finger" probes.
+* Add the following support username guessing against finger
+  daemons using finger-user-enum.pl:
+  - yaptest-finger-user-enum.pl
+  - yaptest-parse-finger-user-enum.pl
+  - finger-users.txt
+  NB: Only tested against one Linux and one Solaris finger 
+  daemon so far.
+* Added yaptest-password-guess-mysql.pl
+* Added API for parseing BSD MD5 hashes from john.pot.
+* Added yaptest-rexd.pl to get credential information from
+  hosts running rexd.
+* "yaptest-progress.pl reset" takes multiple args.
+* Improved parsing of /etc/groups by yaptest-groups.pl
+* yaptest-credentials.pl parses issues about DES-based
+  hashes and cleartext passwords in /etc/passwd.
+
+2008-09-18 yaptest v0.1.7
+
+* These scripts can now export query results in XML format
+  for importing into 3rd party tools:
+  - yaptest-issues.pl
+  - yaptest-hosts.pl
+  - yaptest-ports.pl
+  - yaptest-port-info.pl
+  - yaptest-host-info.pl
+* yaptest-issues.pl has an 'insecgen' option to generate issues
+  about insecure protocols being used.
+* Added yaptest-parse-nikto.pl to parse a few issues from 
+  nikto output.
+* yaptest-parse-ping-r.pl now parses hop number into backend
+  database.
+* yaptest-parse-oscanner.pl generates issues about weak logins.
+* yaptest-sslscan.pl now has a timeout.
+* Bug Fix: yaptest-issues.pl can now search on test_area
+* Bug Fix: yaptest-port-info.pl can now search on value
+* Bug Fix: Stopped yaptest-parse-nmap-xml.pl from parsing
+           closed TCP ports into the database.
+* Bug Fix: yaptest-snmp-user-enum.pl does better pattern
+           matching to determine hosts to run against.
+* Bug Fix: Traceroute output file now contains IP addr.
+
+2008-09-06 yaptest v0.1.6
+
+* Added yaptest-x-open.pl to run commands against open
+  X11 servers
+* Added yaptest-fpdns.pl to fingerprint any DNS servers
+  found.
+* Added yaptest-ident-user-enum.pl to grab usernames if the
+  ident/auth service is running on 113/TCP.
+* Added yaptest-vessl.pl - contributed by deanx.
+  Performs verious checks on SSL certs and adds corresponding
+  issues to database.
+* run_test now supports markup to use port_info, e.g.
+  ::PORTINFO-ldap_namingcontext::
+* yaptest-ldapsearch.pl modified to run a query using each 
+  naming context found as a base DN.
+* run_test's port filter can now select a range of ports
+* The run_test 'command' markup for ports can handle 
+  subtraction, e.g. ::PORT-6000:: for X11 tests.
+* run_test's port_info filter can now use <, >
+* run_test's filter can now be applied to only a subset of
+  hosts using the host_filter argument.
+* Bug Fix: yaptest-issues.pl can delete port-issues
+* Bug Fix: Permission problem on icmp_names table
+* Bug Fix: yaptest-password-guess-smb.pl works now
+* Bug Fix: yaptest-parse-nmap-xml.pl is better at parsing
+           the nmap_os_guess host_info field
+* Bug Fix: view_insecure_protos no long contains ssl ports
+* Bug Fix: view_host_info no longer contains null rows
+* yaptest-issue.pl parses a few more issues from nessus
+* yaptest-parse-enum4linux.pl parses user enumeration 
+  issues.
+* Added yaptest-dns.pl and yaptest-parse-dns.pl to check
+  for recursive lookups.  May do more in future.
+* Schema update: added primary keys back
+* Schema update: support for holding network topology info
+                 (initially used only by YaptestFE v0.9.1)
+* Schema update: Added speed-up indexes to the credentials table
+* yaptest-parse-nmap-xml.pl modified to parse topology
+  info from TCP traceroutes which are done automatically by
+  later versions of nmap.
+* yaptest-traceroute.pl and yaptest-ping-r.pl added to 
+  collect network topology information.
+* Actually added yaptest-host-info.pl to the tar ball!
+* yaptest-parse-snmpwalk.pl now parses the interface IPs
+  into the "interfaces" table.  Helps to identify multi-homed
+  hosts for the network map.
+* Added yaptest-parse-tnscmd.pl to parse port_info and issues
+  about oracle services.
+
+2008-08-10 yaptest v0.1.5
+
+* The following scripts now insert more "issues":
+   yaptest-parse-yapscan-icmp.pl
+   yaptest-issues.pl
+   yaptest-parse-enum4linux.pl
+   yaptest-parse-sslscan.pl (new script)
+   yaptest-parse-dcetest.pl (new script)
+  Note that support for "issues" is still quite rundentary
+  in this release.  There are no issue descriptions, title,
+  risk ratings, etc. yet.
+* Semaphores implemented to solve race conidition which 
+  caused postgres error message.
+* Lots of database schema changes to support YaptestFE
+
+2008-07-19 yaptest v0.1.4
+
+* Nikto output filenames contain the protocol (http / https).
+* Made some error messages more verbose.
+* Can no longer accidentially add a network instead of an 
+  IP via yaptest-hosts.pl (e.g. 192.168.0.0/24)
+* Bug Fix: Uppercase letters converted to lowercase in
+           database name (backend doesn't allow ucase)
+* Bug Fix: Test areas can contain '-' now.
+* Bug Fix: Semaphore implemented to prevent multiple processes
+           (name yaptest-bannergrab.pl) from creating port_keys
+	   at the same time.
+* yaptest-parse-nmap-xml.pl will now parse MAC addresses out
+  (if present) and associate them with the IP in the backend db
+* yaptest-parse-nmap-xml.pl will now parse the top OS guess
+  and store it as host_info in the backend db
+* DB schema altered to prevent yaptest_user owning tables
+* Dropped uniqueness constraint on port_info table to prevent
+  yaptest-parse-bannergrab.pl causing the the following error:
+   DBD::Pg::st execute failed: ERROR:  index row size 4100 
+   exceeds btree maximum, 2713
+* run_test API now supports filtering based on host_info
+* Duration of quick UDP scan stored in host_info table.
+* yaptest-nmap-udp.pl will now do a full UDP scan of any 
+  hosts that complete their quick UDP scan in less than
+  10 seconds (e.g. Windows boxes)
+* yaptest-credentials.pl now allows searching on username
+  and password fields using the special words NOTNULL and
+  NOTEMPTY - useful to list accounts you know the password
+  for
+* Altered some database field names:
+    icmp.type => icmp.icmp_type
+    icmp.code => icmp.icmp_code
+
+2008-05-15 yaptest v0.1.3
+
+* Global settings (for all users) can now be configured in
+  /etc/yaptest.conf - useful if lots of pentesters use a
+  shared server.
+* Lines in config files starting with # are treated as 
+  comments.
+* Included some example dictionaries.  These get installed
+  in /usr/local/yaptest.  You want to replace these
+  with some good dicts or select a different dict using
+  /etc/yaptest.conf
+* Created yaptest-db-ips-mac.sh for mac users.  It's basically
+  the same as yaptest-db-ips.sh but doesn't run yapscan
+  (yapscan doesn't work on mac)
+* Changed usage of "yaptest-hosts.pl delete" to be like
+  "yaptest-hosts.pl add".
+* Bug fix: yaptest-parse-nmap-xml.pl now copes when extra
+  XML has been appended to an existing results file.
+
+2008-05-12 yaptest v0.1.2
+
+* yaptest-nmap-tcp.pl now parallelises scans - accidentally
+  removed in previous version.
+
+2008-04-20 yaptest v0.1.1
+
+* command_log table created.  Each time yaptest runs an 
+  external command, it will log the time the command is
+  run to the command_log table.  End time is also recorded.
+* API improvement.  Forked process can now communicate with
+  backend database.  This was required for new logging 
+  feature.
+* yaptest-wizard.pl now reminds you to run yaptest-db-ips.sh.
+* dns-grind, medusa, oscanner, snmpwalk added to dependency list.
+* hoppy output now saved via -S option.  Hoppy v1.5+ required.
+* yaptest-ldap.pl renamed to yaptest-ldapsearch.pl
+* ldapsearch explicitly specifies -x for simple auth.  The 
+  default on mac seems to be not to use simple auth.
+* LDAP namingContexts stored in the port_info table.
+* Added yaptest-port-info.pl for viewing information stored
+  about each port.
+* HTTP script now run against "nmap_service like http" instead
+  of "nmap_service = http".  Proxy ports were being missed.
+* Bug fix: A couple of scripts were still using perl -w.
+  This breaks on linux where #!/usr/bin/env perl -w is used.
+  Added "use warnings" instead.
+* API improvement.  "OR" queries for port_info, e.g.
+  nmap_service_name is "oracle" OR oracle_tns.  See
+  yaptest-tnscmd.pl for an example.
+* yaptest-bannergrab-ng.pl renamed to yaptest-bannergrab.pl
+* Output from bannergrab now stored in the database.
+* sslscan is now run against SMTP servers supporting
+  STARTTLS.  sslscan v3.6+ required.
+* smtp-user-enum.pl is run against SMTP servers which 
+  bannergrab identifies has allowing user enumeration.
+  Usernames are auto-parsed into credentials database.
+
+2008-04-06 yaptest v0.1.0
+
+* #!/usr/bin/perl changed to #!/usr/bin/env perl.
+  This allows users to change to a different perl 
+  interpreter just by changing their path.
+* Cheers to deanx for the following bug reports / feature
+  requests:
+* Bug fix: -i option now works for "yaptest-hosts.pl query"
+* Bug fix: yaptest.conf now quotes the env var, so yaptest
+  still works when you have spaces in your path.
+* yaptest_interface is now set to en0 by default on OSX
+  and remains eth0 by default on Linux.  
+
+2008-04-01 yaptest v0.0.9
+
+* Added yaptest-issues.pl to keep track of which
+  security issues are associated with which IPs / ports
+* Added yaptest-oscanner.pl to run the Oracle password
+  gussing script on all ports identified as Oracle by
+  nmap.
+* Added yaptest-dns-grind.pl to get DNS PTR hostnames
+  for all IPs and store them in the database.
+* yaptest-parse-arp-scan-local-network.pl now stores the
+  NIC vendor as host-info (use yaptest-host-info.pl to
+  query).
+* yaptest-password-guess-ssh.pl now runs against all
+  ports nmap identifies as ssh, not simply against port
+  22.
+* Added missing yaptest-parse-nbtscan.pl.  Oops.
+* OSX users can install more easily using:
+     make databasemac
+     make installmac
+* Debug messages removed from yaptest-progress.pl
+* "make install" will check for PERL syntax errors while
+  installing.  This is more to avoid bugs in releases
+  than to help end users, though.
+
+2008-03-31 yaptest v0.0.8
+
+* Install scripts tweaked to be more compatible with OSX.
+  Extra notes updated in the script comments.
+* yaptest-nmap-tcp.pl can now be called on just the open
+  port (as before) or on all IP addresses (new).  Nmap
+  can therefore be used instead of yapscan.
+
+2008-03-30 yaptest v0.0.7
+
+* Interrupt tests and resume them later.
+  run_test API now remembers what it has scanned and avoids
+  re-scanning it.  This allows tests to be resumed 
+  relatively efficiently if they're interrupted.
+* Auto-parse scan results into the database.
+  run_test API now has an option to specify a parser that
+  will be run on on the output file.  These script now
+  auto-parse, so the parsers aren't called from 
+  yaptest-db-ips.sh:
+        yaptest-yapscan-icmp.pl
+        yaptest-yapscan-tcp.pl
+        yaptest-rpcinfo.pl
+        yaptest-onesixtyone.pl
+        yaptest-enum4linux.pl
+        yaptest-snmpwalk.pl
+        yaptest-password-guess-ftp.pl
+        yaptest-password-guess-mssql.pl
+        yaptest-password-guess-rlogin.pl
+        yaptest-password-guess-smb.pl
+        yaptest-password-guess-ssh.pl
+        yaptest-arp-scan-local-network.pl
+* Added yaptest-host-info.pl.  This can be used to store 
+  arbitrary info about a host in key/value format.  Currently
+  used for tracking OS, Windows domain, Domain controllers,
+  Device type, SNMP system description.
+* "make checkdep" is now supported to check for missing 
+  external programs and PERL modules.
+* yaptest-yapscan-tcp.pl now breaks scans into chunks and
+  run scans on custom port ranges.  The smaller chunks help
+  to resume scans more efficiently.
+* Added yaptest-password-guess-mysql.pl to guess passwords 
+  against any mysql servers found.
+* Most password guessing is not turned off in 
+  yaptest-db-ips.sh to avoid locking accounts out.
+* yaptest-enum4linux.pl now uses version 0.8.0 which takes
+  different command line args and does more thorough enumeration.
+* yaptest-groups.pl can now parse group info from enum4linux
+  output.  This is incredibly helpful when attacking large
+  Windows domains.
+* yaptest-ports.pl now support querying of ports based on
+  nmap version string (e.g. 'Apache').
+* yaptest-parse-onesixtyone.pl now stores system descrition
+  as "host-info" and recognises jetdirect systems as having
+  device_type = printer.
+* rpcinfo-based tests use RPC number instead of name incase 
+  users don't have a good /etc/rpc file.
+* Optimised yaptest-db-ips.sh to do the interesting stuff
+  first.
+* Nmap TCP scans use --version-all so nmap does a better job
+  of identifying strange ports.  This is slower, but is 
+  important because so many scripts rely on what nmap finds.
+* Lots of schema enhancements to support current and future
+  features.
+* yaptest-parse-nbtscan.pl added to store hostname,
+  domain membership and domain controller info in backend
+  database.
+* Added ASCII art to yaptest-wizard.pl :-)
+
+2007-12-22 yaptest v0.0.6
+
+* Added yaptest-groups.pl to keep track of group memberships
+  for Unix system.  No Windows support yet, though.
+* Added yaptest-bannergrab-ng.pl which runs bannergrab-ng on 
+  every TCP port.
+* Added yaptest-sslscan.pl which runs sslscan on all the 
+  TCP ports which nmap thinks are SSL ports.
+* Added yaptest-httprint.pl which runs httprint on all
+  HTTP and HTTPS ports.
+* Added yaptest-hoppy.pl which runs hoppy on all
+  HTTP and HTTPS ports.
+* Fixed bug in yaptest-wizard.pl.  It was creating test areas
+  as subdirs other test areas.
+* Fixed bug which prevented proper parsing of NTLM hashes from
+  the john.pot file.
+* Added support for cracking NTLM hashes using NTLM rainbow 
+  tables via rcrack.  See yaptest-credentials.pl for details.
+* Bug fix: yaptest-parse-hydra.pl can now deal with blank passwords
+
+2007-11-03 yaptest v0.0.5
+
+* Added rcrack support for cracking LANMAN hashes to 
+  yaptest-credentials.pl.
+* Added test-setup script yaptest-wizard.pl
+* Significant speed-ups for database performance while password 
+  cracking.  It can still be slow, but now usable for ~3000 accounts.
+* Support for cracking NTLM hashes with john the ripper.
+* Support for specifying a john command line.  Edit yaptest.conf.
+  Useful for using a copy that is not in the path or starting
+  the MPI version of john with mpiexec.
+* Enum4linux now cycles through more RIDs to try and avoid missing
+  accounts.
+* Yaptest-hosts.pl can add a list of hosts from the command
+  line - instead of one at a time like before.
+* Yaptest-hosts.pl can delete hosts.
+
+2007-07-29 yaptest v0.0.4
+
+* Generally cleaned up output to remove debug messages and 
+  standardise usage messages.
+* yaptest-parse-snmpwalk.pl added.  Parses usernames from Windows
+  systems into the credentials database.  Also parses unix users
+  from process listing.
+* yaptest-parse-enum4linux.pl added.  Parses username info if 
+  target has settings equivelant to RestrictAnonymous=0 or 1.
+* yaptest-parse-hydra.pl added.  Guessed usernames and passwords
+  are now added to credentials database by yaptest-db-ips.sh.
+  Use "yaptest-credentials.pl query" for list of creds found.
+* yaptest-ports.pl can now search on nmap service type and nmap
+  service version so you can easily search for all HTTP servers
+  or all Apache servers for example.
+* yaptest-icmp.pl added for querying which hosts respond to ICMP.
+* yaptest-password-guess-smb.pl now uses hydra instead 
+  of medusa.
+* Bug fix: SNMP community strings are now displayed by
+           yaptest-credentials.pl, and used properly by
+	   yaptest-snmpwalk.pl
+* Bug fix: Uniquness constraint when parsing slightly different
+           nmap results.
+* Mostly removed support for environment variable in favour of
+  yaptest.conf and ~/.yaptestrc configuration files.
+* Added yaptest-config.pl
+
+2007-07-15 yaptest v0.0.3
+
+* yaptest-db-ips.sh added to kick off most supported tests on all the
+  IPs in the database
+* Extra scripts:
+    yaptest-amap-udp.pl
+    yaptest-credentials.pl
+    yaptest-enum4linux.pl
+    yaptest-snmpwalk.pl
+    yaptest-sshprobe.pl
+    yaptest-tftp.pl
+    yaptest-veritas-file-download.pl
+* Renamed yaptest-nfs.pl to yaptest-showmount.pl
+* Deprecated yaptest-add-ips.pl in favour of yaptest-hosts.pl
+* Deprecated yaptest-os-usernames.pl in favour of yaptest-credentials.pl
+* Schema changes to support resuming of scans - still under development
+* yaptest-ports.pl supports "-t test_area" option
+* Bug fix: -t option to yaptest-hosts.pl now works
+* Scripts that "use yaptest" now print out a standard banner on startup
+* Targets are now printed for each test without the use of Data::Dumper
+
+2007-07-03 Yaptest v0.0.2
+
+* Support for ::PORTLIST-SPACE:: markup tag
+* Extra scripts:
+    yaptest-amap-tcp.pl
+    yaptest-ike-scan.pl
+    yaptest-tnscmd.pl
+
+2007-07-01 Yaptest v0.0.1
+
+* Initial public release
+

@@ -1,0 +1,13 @@
+Carp
+DBD::Pg
+DBI
+Data::Dumper
+Digest::MD4
+File::Basename
+File::Temp
+Getopt::Long
+IO::Pty
+POSIX
+Parallel::ForkManager
+Template
+XML::Simple
