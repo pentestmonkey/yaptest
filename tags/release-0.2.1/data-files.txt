@@ -1,0 +1,17 @@
+tftp-files.txt
+ssh-usernames.txt
+ftp-passwords.txt
+ftp-usernames.txt
+mssql-passwords.txt
+mssql-usernames.txt
+rlogin-usernames.txt
+rlogin-passwords.txt
+smb-usernames.txt
+smb-passwords.txt
+smb_shares.txt
+snmp.txt
+ssh-passwords.txt
+smtp-usernames.txt
+finger-usernames.txt
+mysql-usernames.txt
+mysql-passwords.txt

@@ -1,0 +1,8 @@
+ILMI
+admin
+cisco
+manager
+monitor
+openview
+private
+public
