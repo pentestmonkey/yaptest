@@ -1,0 +1,10 @@
+#summary A list of all yaptests dependencies
+
+=Yaptest depends on the following perl modules=
+
+* TODO
+
+=Yaptest depends on the following external programs=
+
+* TODO
+
