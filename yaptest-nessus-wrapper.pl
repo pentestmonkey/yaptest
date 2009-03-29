@@ -1,5 +1,4 @@
-#!/usr/bin/env perl
-use warnings;
+#!/usr/bin/perl -w
 use strict;
 use Getopt::Long;
 use IPC::SysV qw(IPC_CREAT SEM_UNDO);
@@ -130,7 +129,7 @@ sub get_config_file_template {
 	print "\t$file will be generated now.\n\n";
 	open OUTFILE, ">$file" or die "ERROR: Tried to open $file for writing, but failed: $!";
 
-	open (PREFS, "NessusClient -x -q -P $host $port '$user' '$pass' |") or die "ERROR: Can't run Nessus: $!\n";
+	open (PREFS, "$nessusclient -x -q -P $host $port '$user' '$pass' |") or die "ERROR: Can't run Nessus: $!\n";
 	while (<PREFS>) {
 		my $line = $_;
 		if ($line =~ /\[.*\]:.* = /) {
@@ -141,7 +140,7 @@ sub get_config_file_template {
 	}
 	close(PREFS);
 	
-	open (PLUGINS, "NessusClient -x -q -p $host $port '$user' '$pass' |") or die "ERROR: Can't run Nessus: $!\n";
+	open (PLUGINS, "$nessusclient -x -q -p $host $port '$user' '$pass' |") or die "ERROR: Can't run Nessus: $!\n";
 	while (<PLUGINS>) {
 		my $line = $_;
 		my ($id) = $line =~ /^(\d+)|/;

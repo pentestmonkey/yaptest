@@ -1,5 +1,4 @@
-#!/usr/bin/env perl
-use warnings;
+#!/usr/bin/perl -w
 use strict;
 use POSIX;
 use yaptest;
@@ -14,7 +13,7 @@ my $usage = "Usage: $script_name
 Runs Nessus 3 on open ports (found from backend database).
 
 The the location of the nessus client (normally called 'nessus') 
-can be specified using yaptest-config.pl to 'nessus' client to the
+can be specified using yaptest-config.pl to set 'nessus_client' to the
 full path of nessus binary (e.g. /opt/nessus/bin/nessus).  
 
 The Nessus daemon should already have been started and yaptest 
@@ -51,6 +50,6 @@ $y->run_test (
 	command => "yaptest-nessus-wrapper.pl -c '$nessus_client' -h '$nessusd_ip:$nessusd_port' -u '$nessusd_username' --pass '$nessusd_password' -i ::IP:: --ports ::PORTLIST:: -o nessus-report-::IP::.nbe",
 	parallel_processes => $max_processes,
 	output_file => "nessus-::IP::.out",
-	parser => "yaptest-issues.pl parse"
+	parser => "yaptest-issues.pl parse nessus-report-::IP::.html"
 );
 

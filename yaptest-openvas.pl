@@ -1,5 +1,4 @@
-#!/usr/bin/env perl
-use warnings;
+#!/usr/bin/perl -w
 use strict;
 use POSIX;
 use yaptest;
@@ -51,6 +50,6 @@ $y->run_test (
 	command => "yaptest-nessus-wrapper.pl -c '$openvas_client' -h '$openvasd_ip:$openvasd_port' -u '$openvasd_username' --pass '$openvasd_password' -i ::IP:: --ports ::PORTLIST:: -o openvas-report-::IP::.nbe",
 	parallel_processes => $max_processes,
 	output_file => "openvas-::IP::.out",
-	parser => "yaptest-issues.pl parse"
+	parser => "yaptest-issues.pl parse openvas-report-::IP::.html"
 );
 
