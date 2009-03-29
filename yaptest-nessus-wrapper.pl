@@ -1,4 +1,5 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
+use warnings;
 use strict;
 use Getopt::Long;
 use IPC::SysV qw(IPC_CREAT SEM_UNDO);
