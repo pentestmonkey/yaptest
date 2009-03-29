@@ -108,3 +108,4 @@ yaptest-openvas.pl
 yaptest-parse-ldapuserenum.pl
 yaptest-ldapuserenum.pl
 yaptest-auto.pl
+yaptest-parse-medusa.pl

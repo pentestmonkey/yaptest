@@ -141,3 +141,4 @@ yaptest-parse-amap.pl
 yaptest-openvas.pl
 yaptest-parse-ldapuserenum.pl
 yaptest-ldapuserenum.pl
+yaptest-parse-medusa.pl
