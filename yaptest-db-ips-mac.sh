@@ -101,3 +101,4 @@ yaptest-fpdns.pl
 yaptest-dns.pl
 yaptest-ntp.pl
 yaptest-tftp.pl
+yaptest-issues.pl insecgen
