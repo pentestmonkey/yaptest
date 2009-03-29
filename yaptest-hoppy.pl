@@ -11,7 +11,7 @@ my $script_name = basename($0);
 my $usage = "Usage: $script_name [options]
 Runs hoppy on any port in database which nmap thinks are HTTP(S) ports.
 
-NB: hoppy v1.5+ is required to be in the path.  (http://www.portcullis.co.uk/16.php)
+NB: hoppy v1.5+ is required to be in the path.  (http://labs.portcullis.co.uk/application/hoppy/)
 
 ";
 
@@ -24,7 +24,8 @@ $y->run_test(
 	filter => { port_info => "nmap_service_name like http", ssl => 0 },
 	output_file => 'hoppy-http-::IP::-::PORT::.out',
 	max_lines => 1000,
-	inactivity_timeout => 180
+	inactivity_timeout => 180,
+	parser => "yaptest-parse-hoppy.pl"
 );
 
 $y->run_test(
@@ -33,7 +34,8 @@ $y->run_test(
 	filter => { port_info => "nmap_service_name like http", ssl => 1 },
 	output_file => 'hoppy-https-::IP::-::PORT::.out',
 	max_lines => 1000,
-	inactivity_timeout => 180
+	inactivity_timeout => 180,
+	parser => "yaptest-parse-hoppy.pl"
 );
 
 
