@@ -20,6 +20,7 @@ yaptest-parse-hydra.pl
 yaptest-get-all-open-ports.pl
 yaptest-hosts.pl
 yaptest-ike-scan.pl
+yaptest-parse-ike-scan.pl
 yaptest-install.sh
 yaptest-ldapsearch.pl
 yaptest-nbtscan.pl
@@ -66,6 +67,7 @@ yaptest-bannergrab.pl
 yaptest-sslscan.pl
 yaptest-httprint.pl
 yaptest-hoppy.pl
+yaptest-parse-hoppy.pl
 yaptest-test-areas.pl
 yaptest-smtpscan.pl
 yaptest-progress.pl
