@@ -1345,4 +1345,10 @@ END, v4.value, v5.value, v6.value, v7.value, v8.value, v9.value, v10.value, v11.
 
 GRANT SELECT ON view_windows_host_info TO yaptest_user;
 
-create view view_nmap_info as select p1.port_info_id, vp.port_id, vp.host_id, vp.ip_address, vp.test_area_id, vp.test_area_name, vp.port, vp.transport_protocol, p1.value AS nmap_service_name, p2.value as nmap_service_version from view_ports vp left join view_port_info p1 on vp.port_id = p1.port_id and p1.port_info_key = 'nmap_service_name'::text left join view_port_info p2 on vp.port_id = p2.port_id and p2.port_info_key = 'nmap_service_version'::text; grant select on view_nmap_info to yaptest_user;
+
+create view view_nmap_info as SELECT p1.value, p1.port_info_id, p1.port_info_key, vp.port_id, vp.host_id, vp.ip_address, vp.test_area_id, vp.test_area_name, vp.port, vp.transport_protocol, p1.value AS nmap_service, p2.value AS nmap_version
+   FROM view_ports vp
+      LEFT JOIN view_port_info p1 ON vp.port_id = p1.port_id AND p1.port_info_key = 'nmap_service_name'::text
+         LEFT JOIN view_port_info p2 ON vp.port_id = p2.port_id AND p2.port_info_key = 'nmap_service_version'::text;
+
+grant select on view_nmap_info to yaptest_user;
