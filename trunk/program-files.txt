@@ -33,6 +33,7 @@ yaptest-yapscan-icmp.pl
 yaptest-yapscan-tcp.pl
 yaptest-amap-tcp.pl
 yaptest-ike-scan.pl
+yaptest-parse-ike-scan.pl
 yaptest-tnscmd.pl
 yaptest-veritas-file-download.pl
 yaptest-enum4linux.pl
@@ -53,6 +54,7 @@ yaptest-bannergrab.pl
 yaptest-sslscan.pl
 yaptest-httprint.pl
 yaptest-hoppy.pl
+yaptest-parse-hoppy.pl
 yaptest-test-areas.pl
 yaptest-smtpscan.pl
 yaptest-progress.pl
