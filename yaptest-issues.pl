@@ -316,6 +316,17 @@ if ($command eq "parse") {
 		print "DEBUG: name => 'finger_user_enum', ip_address => $href->{ip_address}, port => $href->{port}, transport_protocol => $href->{transport_protocol}\n";
 		$y->insert_issue(test_area => $href->{test_area_name}, name => "finger_user_enum", ip_address => $href->{ip_address}, port => $href->{port}, transport_protocol => $href->{transport_protocol});
 	}
+
+	# small services
+	foreach my $port (7, 9, 13, 19, 37) {
+		foreach my $trans ("UDP", "TCP") {
+			$arefs = $y->get_ports(test_area => $y->get_test_area, port => $port, transport_protocol => $trans);
+			foreach my $href (@$arefs) {
+				print "DEBUG: name => 'small_services', ip_address => $href->{ip_address}, port => $href->{port}, transport_protocol => $href->{transport_protocol}\n";
+				$y->insert_issue(test_area => $href->{test_area_name}, name => "small_services", ip_address => $href->{ip_address}, port => $href->{port}, transport_protocol => $href->{transport_protocol});
+			}
+		}
+	}
 } else {
 	print "ERROR: Command $command not implemented\n";
 }
