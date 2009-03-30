@@ -48,6 +48,7 @@ while ($file = shift) {
 		print "PARSED: IP=$ip, Community=$community\n";
 		$y->insert_credential(ip_address => $ip, port => 161, transport_protocol => "UDP", password => $community, credential_type_name => "snmp_community");
 		$y->insert_host_info(ip_address => $ip, key => "device_info", value => $device_info);
+		$y->insert_issue(name => "snmp_comm_guessed", ip_address => $ip, port => 161, transport_protocol => "UDP");
 		if ($line =~ /JETDIRECT/) {
 			$y->insert_host_info(ip_address => $ip, key => "device_type", value => 'Printer');
 		}

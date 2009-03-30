@@ -309,6 +309,13 @@ if ($command eq "parse") {
 		print "DEBUG: name => 'insec_proto_snmp1', ip_address => $href->{ip_address}, port => $href->{port}, transport_protocol => $href->{transport_protocol}\n";
 		$y->insert_issue(test_area => $href->{test_area_name}, name => "insec_proto_snmp1", ip_address => $href->{ip_address}, port => $href->{port}, transport_protocol => $href->{transport_protocol});
 	}
+
+	# finger
+	$arefs = $y->get_ports(test_area => $y->get_test_area, port => 79, transport_protocol => 'TCP');
+	foreach my $href (@$arefs) {
+		print "DEBUG: name => 'finger_user_enum', ip_address => $href->{ip_address}, port => $href->{port}, transport_protocol => $href->{transport_protocol}\n";
+		$y->insert_issue(test_area => $href->{test_area_name}, name => "finger_user_enum", ip_address => $href->{ip_address}, port => $href->{port}, transport_protocol => $href->{transport_protocol});
+	}
 } else {
 	print "ERROR: Command $command not implemented\n";
 }
