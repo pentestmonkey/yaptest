@@ -109,3 +109,8 @@ yaptest-parse-ldapuserenum.pl
 yaptest-ldapuserenum.pl
 yaptest-auto.pl
 yaptest-parse-medusa.pl
+yaptest-ssh-run-command.pl
+yaptest-nfs-wrapper.pl
+yaptest-nfs.pl
+yaptest-parse-nfs.pl
+yaptest-parse-showmount.pl
