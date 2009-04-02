@@ -22,6 +22,7 @@ tcp_port_based_tests () {
 	yaptest-nmap-tcp.pl openonly
 	yaptest-parse-nmap-xml.pl nmap-tcp*.xml
 	yaptest-tnscmd.pl
+	yaptest-nfs.pl
 	yaptest-oscanner.pl
 	nmap_service_based_tests
 	yaptest-bannergrab.pl

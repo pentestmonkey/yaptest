@@ -18,7 +18,8 @@ my $y = yaptest->new();
 $y->run_test(
 	command => "showmount -e ::IP::",
 	filter => { port_info => 'rpcinfo_tcp like % 100003 %' },
-	output_file => "showmount-e-::IP::.out"
+	output_file => "showmount-e-::IP::.out",
+	parser => "yaptest-parse-showmount.pl"
 );
 
 $y->run_test(

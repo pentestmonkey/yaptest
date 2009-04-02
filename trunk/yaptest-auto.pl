@@ -246,6 +246,7 @@ sub tcp_port_based_tests
 	push(@torun, "yaptest-rexd.pl");
         push(@torun, "yaptest-kcmsd-fileread.pl");
         push(@torun, "yaptest-showmount.pl");
+        push(@torun, "yaptest-nfs.pl");
         push(@torun, "yaptest-rup.pl");
         push(@torun, "yaptest-rusers.pl");
 
