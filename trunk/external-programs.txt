@@ -52,3 +52,5 @@ xwud
 ident-user-enum.pl
 finger-user-enum.pl
 on
+nfs
+ssh
