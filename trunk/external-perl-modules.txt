@@ -3,11 +3,13 @@ DBD::Pg
 DBI
 Data::Dumper
 Digest::MD4
+Expect
 File::Basename
 File::Temp
 Getopt::Long
 IO::Pty
 POSIX
 Parallel::ForkManager
+Proc::Simple
 Template
 XML::Simple
