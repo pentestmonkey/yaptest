@@ -17,6 +17,7 @@
  * Parallel::ForkManager
  * Template
  * XML::Simple
+ * Proc::Simple
 
 =Yaptest depends on the following external programs=
 
