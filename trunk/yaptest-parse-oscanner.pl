@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
-use strict;
 use warnings;
+use strict;
 use POSIX;
 use Getopt::Long;
 use yaptest;
@@ -58,8 +58,7 @@ while ($file = shift) {
 			$o_user = $1;
 			$o_pass = $2;
 			print "PARSED: Oracle host: $o_host, Oracle SID: $o_sid, user=$o_user, pass=$o_pass\n";
-			$y->insert_credential(ip_address => $o_host, port => $port, transport_protocol => "TCP", domain => $o_sid, username => $o_user, password => $o_pass, credential_type_name => "oracle");
-			$y->insert_issue(name => 'oracle_weak_logon', ip_address => $o_host, port => $port, transport_protocol => "TCP");
+			$y->insert_credential(ip_address => $o_host, port => $o_port, transport_protocol => "TCP", domain => $o_sid, username => $o_user, password => $o_pass, credential_type_name => "oracle");
 		}
 	}
 
