@@ -38,7 +38,7 @@ sslscan
 telnet
 tftp
 tftpbrute.pl
-tnscmd.pl
+tnscmd
 yapscan
 smtp-user-enum.pl
 vessl

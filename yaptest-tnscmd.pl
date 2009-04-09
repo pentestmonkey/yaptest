@@ -18,7 +18,7 @@ my $y = yaptest->new();
 
 for my $option ("ping", "version", "services", "status") {
 	$y->run_test(
-		command => "tnscmd.pl $option --indent -h ::IP:: -p ::PORT::",
+		command => "tnscmd $option --indent -h ::IP:: -p ::PORT::",
 		filter => { port_info => [ "nmap_service_name = oracle-tns", "nmap_service_name = oracle" ], ssl => 0 },
 		parallel_processes => 10,
 		output_file => "tnscmd-$option-::IP::-::PORT::.out",
