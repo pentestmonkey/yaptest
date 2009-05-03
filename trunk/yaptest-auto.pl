@@ -145,7 +145,7 @@ my $runNessus = 1;
 
 if(defined($y->get_config('auto-nessus')))
 {
-        if($y->get_config('auto-uessus') != 1)
+        if($y->get_config('auto-nessus') != 1)
         {
                  $runNessus = 0;
         }
