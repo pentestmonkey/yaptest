@@ -19,7 +19,7 @@ die $usage if shift;
 my $y = yaptest->new();
 
 $y->run_test(
-	command => "hoppy -h http://::IP:::::PORT::",
+	command => "hoppy -h http://::IP:::::PORT:: -S hoppy-http-::IP::-::PORT::",
 	parallel_processes => $max_processes,
 	filter => { port_info => "nmap_service_name like http", ssl => 0 },
 	output_file => 'hoppy-http-::IP::-::PORT::.out',
@@ -29,7 +29,7 @@ $y->run_test(
 );
 
 $y->run_test(
-	command => "hoppy -h https://::IP:::::PORT::",
+	command => "hoppy -h https://::IP:::::PORT:: -S hoppy-https-::IP::-::PORT::",
 	parallel_processes => $max_processes,
 	filter => { port_info => "nmap_service_name like http", ssl => 1 },
 	output_file => 'hoppy-https-::IP::-::PORT::.out',
