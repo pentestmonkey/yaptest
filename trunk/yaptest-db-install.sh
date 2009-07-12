@@ -12,7 +12,7 @@ if [ "$PLATFORM" = "osx" ]; then
 	echo "Configuring for OSX"
 	YAPTEST_TEMPLATE_NAME=yaptest_template
 	EXISTING_DATABASE=template1
-	PSQL=psql8
+	PSQL=psql81
 	export PATH=$PATH:/opt/local/bin:/opt/local/lib/postgresql80/bin  # needed on mac for createuser, createdb and dropdb
 	which $PSQL
 	createuser -a -d postgres # needed to make sure the postgres user exists on mac - should exist elsewhere
