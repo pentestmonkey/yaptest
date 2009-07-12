@@ -1,11 +1,11 @@
 DATADIR=/usr/local/share/yaptest/
 BINDIR=/usr/local/bin/
-BINDIR_MAC=/opt/local/bin/
+BINDIR_MAC=/usr/local/bin/
 PERLDIR=/usr/local/lib/site_perl
 PERLDIR_MAC=/opt/local/lib/perl5/site_perl
 YAPTEST_VERSION=`echo yaptest-0.2.1`
 POSTGRES_USER=postgres
-POSTGRES_USER_MAC=postgres80
+POSTGRES_USER_MAC=postgres81
 TEMPDIR=/tmp
 
 database: yaptest_template.sql
