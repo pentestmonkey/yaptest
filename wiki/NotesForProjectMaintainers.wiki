@@ -22,4 +22,4 @@ This should help avoid having trunk broken for ages.
 
 = Merging Branches Back Into Trunk =
 
-We cross that bridge when we come to it. :-)
+We'll cross that bridge when we come to it. :-)
