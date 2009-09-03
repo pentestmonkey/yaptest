@@ -17,7 +17,7 @@ die $usage if shift;
 my $y = yaptest->new();
 
 $y->run_test(
-	command => "sslscan --xml=sslscan-::IP::-::PORT::.xml ::IP:::::PORT::",
+	command => "sslscan --http --xml=sslscan-::IP::-::PORT::.xml ::IP:::::PORT::",
 	parallel_processes => 8,
 	filter => { ssl => 1 },
 	inactivity_timeout => 60,
@@ -25,7 +25,7 @@ $y->run_test(
 );
 
 $y->run_test(
-	command => "sslscan --starttls --xml=sslscan-::IP::-::PORT::.xml ::IP:::::PORT::",
+	command => "sslscan --http --starttls --xml=sslscan-::IP::-::PORT::.xml ::IP:::::PORT::",
 	parallel_processes => 8,
 	filter => { port_info => "bannergrab LIKE STARTTLS" },
 	inactivity_timeout => 60,
