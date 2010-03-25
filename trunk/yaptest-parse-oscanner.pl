@@ -52,6 +52,7 @@ while ($file = shift) {
 		if ( $line =~ /Checking sid \((.*)\) for common passwords/) {
 			$o_sid = $1;
 			print "PARSED: Oracle host: $o_host, Oracle SID: $o_sid\n";
+			$y->insert_port_info(ip => $o_host, port => $o_port, transport_protocol => 'TCP', port_info_key => "oracle_sid", port_info_value => $o_sid);
 		}
 
 		if ( $line =~ /Account (.*)\/(.*) found/) {
@@ -59,6 +60,13 @@ while ($file = shift) {
 			$o_pass = $2;
 			print "PARSED: Oracle host: $o_host, Oracle SID: $o_sid, user=$o_user, pass=$o_pass\n";
 			$y->insert_credential(ip_address => $o_host, port => $o_port, transport_protocol => "TCP", domain => $o_sid, username => $o_user, password => $o_pass, credential_type_name => "oracle");
+		}
+
+		if ( $line =~ /Account (.*)\/(.*) is locked/) {
+			$o_user = $1;
+			$o_pass = $2;
+			print "PARSED: Oracle host: $o_host, Oracle SID: $o_sid, user=$o_user\n";
+			$y->insert_credential(ip_address => $o_host, port => $o_port, transport_protocol => "TCP", domain => $o_sid, username => $o_user, password => undef, credential_type_name => "oracle");
 		}
 	}
 

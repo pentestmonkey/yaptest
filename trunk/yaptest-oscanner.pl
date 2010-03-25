@@ -22,6 +22,6 @@ $y->run_test(
 	parallel_processes => $max_processes,
 	filter => { port_info => "nmap_service_name = oracle-tns", ssl => 0 },
 	max_lines => 4000,
-	inactivity_timeout => 60,
+	inactivity_timeout => 180,
 	parser => 'yaptest-parse-oscanner.pl'
 );

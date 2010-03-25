@@ -42,7 +42,6 @@ SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('app_protocols', 'id'
 --
 -- Name: command_log; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
-DROP TABLE command_log;
 CREATE TABLE command_log (
     id serial primary key NOT NULL,
     "time" timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -64,7 +63,6 @@ SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('command_log', 'id'),
 -- Name: command_status; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
-DROP TABLE command_status;
 CREATE TABLE command_status (
     id serial primary key NOT NULL,
     name character varying(15) NOT NULL
@@ -1040,7 +1038,7 @@ REVOKE ALL ON TABLE view_insecure_protos FROM PUBLIC;
 REVOKE ALL ON TABLE view_insecure_protos FROM postgres;
 GRANT ALL ON TABLE view_insecure_protos TO postgres;
 GRANT SELECT ON TABLE view_insecure_protos TO yaptest_user;
-grant select, update, insert, delete on test_areas_id_seq to yaptest_user;
+grant select, update on test_areas_id_seq to yaptest_user;
 grant select, update on hosts_id_seq to yaptest_user;
 -- Name: app_protocols; Type: TABLE; Schema: public; Owner: yaptest_user; Tablespace: 
 ALTER TABLE public.app_protocols OWNER TO yaptest_user;
@@ -1073,56 +1071,56 @@ GRANT INSERT,SELECT ON TABLE command_log TO yaptest_user;
 -- Name: command_log_id_seq; Type: ACL; Schema: public; Owner: postgres
 REVOKE ALL ON TABLE command_log_id_seq FROM PUBLIC;
 REVOKE ALL ON TABLE command_log_id_seq FROM postgres;
-GRANT ALL ON TABLE command_log_id_seq TO postgres;
-GRANT INSERT,SELECT,UPDATE ON TABLE command_log_id_seq TO yaptest_user;
+GRANT SELECT,UPDATE ON TABLE command_log_id_seq TO postgres;
+GRANT SELECT,UPDATE ON TABLE command_log_id_seq TO yaptest_user;
 GRANT INSERT,SELECT ON TABLE command_status TO yaptest_user;
 -- Name: command_status_id_seq; Type: ACL; Schema: public; Owner: postgres
 REVOKE ALL ON TABLE command_status_id_seq FROM PUBLIC;
 REVOKE ALL ON TABLE command_status_id_seq FROM postgres;
-GRANT ALL ON TABLE command_status_id_seq TO postgres;
-GRANT INSERT,SELECT,UPDATE ON TABLE command_status_id_seq TO yaptest_user;
+GRANT SELECT,UPDATE ON TABLE command_status_id_seq TO postgres;
+GRANT SELECT,UPDATE ON TABLE command_status_id_seq TO yaptest_user;
 GRANT INSERT,SELECT ON TABLE commands TO yaptest_user;
 -- Name: commands_id_seq; Type: ACL; Schema: public; Owner: postgres
 REVOKE ALL ON TABLE commands_id_seq FROM PUBLIC;
 REVOKE ALL ON TABLE commands_id_seq FROM postgres;
-GRANT ALL ON TABLE commands_id_seq TO postgres;
-GRANT INSERT,SELECT,UPDATE ON TABLE commands_id_seq TO yaptest_user;
+GRANT SELECT,UPDATE ON TABLE commands_id_seq TO postgres;
+GRANT SELECT,UPDATE ON TABLE commands_id_seq TO yaptest_user;
 GRANT INSERT,SELECT ON TABLE credential_types TO yaptest_user;
 -- Name: credential_types_id_seq; Type: ACL; Schema: public; Owner: postgres
 REVOKE ALL ON TABLE credential_types_id_seq FROM PUBLIC;
 REVOKE ALL ON TABLE credential_types_id_seq FROM postgres;
-GRANT ALL ON TABLE credential_types_id_seq TO postgres;
-GRANT INSERT,SELECT,UPDATE ON TABLE credential_types_id_seq TO yaptest_user;
+GRANT SELECT,UPDATE ON TABLE credential_types_id_seq TO postgres;
+GRANT SELECT,UPDATE ON TABLE credential_types_id_seq TO yaptest_user;
 GRANT INSERT,SELECT,UPDATE ON TABLE credentials TO yaptest_user;
 -- Name: credentials_id_seq; Type: ACL; Schema: public; Owner: postgres
 REVOKE ALL ON TABLE credentials_id_seq FROM PUBLIC;
 REVOKE ALL ON TABLE credentials_id_seq FROM postgres;
-GRANT ALL ON TABLE credentials_id_seq TO postgres;
-GRANT INSERT,SELECT,UPDATE ON TABLE credentials_id_seq TO yaptest_user;
+GRANT SELECT,UPDATE ON TABLE credentials_id_seq TO postgres;
+GRANT SELECT,UPDATE ON TABLE credentials_id_seq TO yaptest_user;
 GRANT INSERT,SELECT,UPDATE,DELETE ON TABLE group_memberships TO yaptest_user;
 -- Name: group_memberships_id_seq; Type: ACL; Schema: public; Owner: postgres
 REVOKE ALL ON TABLE group_memberships_id_seq FROM PUBLIC;
 REVOKE ALL ON TABLE group_memberships_id_seq FROM postgres;
-GRANT ALL ON TABLE group_memberships_id_seq TO postgres;
-GRANT INSERT,SELECT,UPDATE ON TABLE group_memberships_id_seq TO yaptest_user;
+GRANT SELECT,UPDATE ON TABLE group_memberships_id_seq TO postgres;
+GRANT SELECT,UPDATE ON TABLE group_memberships_id_seq TO yaptest_user;
 GRANT INSERT,SELECT,UPDATE,DELETE ON TABLE host_info TO yaptest_user;
 -- Name: host_info_id_seq; Type: ACL; Schema: public; Owner: postgres
 REVOKE ALL ON TABLE host_info_id_seq FROM PUBLIC;
 REVOKE ALL ON TABLE host_info_id_seq FROM postgres;
-GRANT ALL ON TABLE host_info_id_seq TO postgres;
-GRANT INSERT,SELECT,UPDATE ON TABLE host_info_id_seq TO yaptest_user;
+GRANT SELECT,UPDATE ON TABLE host_info_id_seq TO postgres;
+GRANT SELECT,UPDATE ON TABLE host_info_id_seq TO yaptest_user;
 GRANT INSERT,SELECT,UPDATE,DELETE ON TABLE host_keys TO yaptest_user;
 -- Name: host_keys_id_seq; Type: ACL; Schema: public; Owner: postgres
 REVOKE ALL ON TABLE host_keys_id_seq FROM PUBLIC;
 REVOKE ALL ON TABLE host_keys_id_seq FROM postgres;
-GRANT ALL ON TABLE host_keys_id_seq TO postgres;
-GRANT INSERT,SELECT,UPDATE ON TABLE host_keys_id_seq TO yaptest_user;
+GRANT SELECT,UPDATE ON TABLE host_keys_id_seq TO postgres;
+GRANT SELECT,UPDATE ON TABLE host_keys_id_seq TO yaptest_user;
 GRANT INSERT,SELECT,DELETE ON TABLE host_progress TO yaptest_user;
 -- Name: host_progress_id_seq; Type: ACL; Schema: public; Owner: postgres
 REVOKE ALL ON TABLE host_progress_id_seq FROM PUBLIC;
 REVOKE ALL ON TABLE host_progress_id_seq FROM postgres;
-GRANT ALL ON TABLE host_progress_id_seq TO postgres;
-GRANT INSERT,SELECT,UPDATE ON TABLE host_progress_id_seq TO yaptest_user;
+GRANT SELECT,UPDATE ON TABLE host_progress_id_seq TO postgres;
+GRANT SELECT,UPDATE ON TABLE host_progress_id_seq TO yaptest_user;
 -- Name: hostname_types; Type: ACL; Schema: public; Owner: yaptest_user
 REVOKE ALL ON TABLE hostname_types FROM yaptest_user;
 GRANT ALL ON TABLE hostname_types TO yaptest_user;
@@ -1133,8 +1131,8 @@ GRANT INSERT,SELECT,UPDATE,DELETE ON TABLE hosts TO yaptest_user;
 -- Name: hosts_id_seq; Type: ACL; Schema: public; Owner: postgres
 REVOKE ALL ON TABLE hosts_id_seq FROM PUBLIC;
 REVOKE ALL ON TABLE hosts_id_seq FROM postgres;
-GRANT ALL ON TABLE hosts_id_seq TO postgres;
-GRANT INSERT,UPDATE ON TABLE hosts_id_seq TO yaptest_user;
+GRANT SELECT,UPDATE ON TABLE hosts_id_seq TO postgres;
+GRANT SELECT,UPDATE ON TABLE hosts_id_seq TO yaptest_user;
 -- Name: hosts_to_mac_addresses; Type: ACL; Schema: public; Owner: yaptest_user
 REVOKE ALL ON TABLE hosts_to_mac_addresses FROM yaptest_user;
 GRANT ALL ON TABLE hosts_to_mac_addresses TO yaptest_user;
@@ -1142,26 +1140,26 @@ GRANT INSERT,SELECT ON TABLE icmp TO yaptest_user;
 -- Name: icmp_id_seq; Type: ACL; Schema: public; Owner: postgres
 REVOKE ALL ON TABLE icmp_id_seq FROM PUBLIC;
 REVOKE ALL ON TABLE icmp_id_seq FROM postgres;
-GRANT ALL ON TABLE icmp_id_seq TO postgres;
+GRANT SELECT,UPDATE ON TABLE icmp_id_seq TO postgres;
 GRANT SELECT,UPDATE ON TABLE icmp_id_seq TO yaptest_user;
 GRANT INSERT,SELECT,UPDATE ON TABLE issues TO yaptest_user;
 -- Name: issues_id_seq; Type: ACL; Schema: public; Owner: postgres
 REVOKE ALL ON TABLE issues_id_seq FROM PUBLIC;
 REVOKE ALL ON TABLE issues_id_seq FROM postgres;
-GRANT ALL ON TABLE issues_id_seq TO postgres;
-GRANT INSERT,SELECT,UPDATE ON TABLE issues_id_seq TO yaptest_user;
+GRANT SELECT,UPDATE ON TABLE issues_id_seq TO postgres;
+GRANT SELECT,UPDATE ON TABLE issues_id_seq TO yaptest_user;
 GRANT INSERT,SELECT,UPDATE,DELETE ON TABLE issues_to_hosts TO yaptest_user;
 -- Name: issues_to_hosts_id_seq; Type: ACL; Schema: public; Owner: postgres
 REVOKE ALL ON TABLE issues_to_hosts_id_seq FROM PUBLIC;
 REVOKE ALL ON TABLE issues_to_hosts_id_seq FROM postgres;
-GRANT ALL ON TABLE issues_to_hosts_id_seq TO postgres;
-GRANT INSERT,SELECT,UPDATE ON TABLE issues_to_hosts_id_seq TO yaptest_user;
+GRANT SELECT,UPDATE ON TABLE issues_to_hosts_id_seq TO postgres;
+GRANT SELECT,UPDATE ON TABLE issues_to_hosts_id_seq TO yaptest_user;
 GRANT INSERT,SELECT,UPDATE,DELETE ON TABLE issues_to_ports TO yaptest_user;
 -- Name: issues_to_ports_id_seq; Type: ACL; Schema: public; Owner: postgres
 REVOKE ALL ON TABLE issues_to_ports_id_seq FROM PUBLIC;
 REVOKE ALL ON TABLE issues_to_ports_id_seq FROM postgres;
-GRANT ALL ON TABLE issues_to_ports_id_seq TO postgres;
-GRANT INSERT,SELECT,UPDATE ON TABLE issues_to_ports_id_seq TO yaptest_user;
+GRANT SELECT,UPDATE ON TABLE issues_to_ports_id_seq TO postgres;
+GRANT SELECT,UPDATE ON TABLE issues_to_ports_id_seq TO yaptest_user;
 -- Name: mac_addresses; Type: ACL; Schema: public; Owner: yaptest_user
 REVOKE ALL ON TABLE mac_addresses FROM yaptest_user;
 GRANT ALL ON TABLE mac_addresses TO yaptest_user;
@@ -1169,32 +1167,32 @@ GRANT INSERT,SELECT ON TABLE password_hash_types TO yaptest_user;
 -- Name: password_hash_types_id_seq; Type: ACL; Schema: public; Owner: postgres
 REVOKE ALL ON TABLE password_hash_types_id_seq FROM PUBLIC;
 REVOKE ALL ON TABLE password_hash_types_id_seq FROM postgres;
-GRANT ALL ON TABLE password_hash_types_id_seq TO postgres;
-GRANT INSERT,SELECT,UPDATE ON TABLE password_hash_types_id_seq TO yaptest_user;
+GRANT SELECT,UPDATE ON TABLE password_hash_types_id_seq TO postgres;
+GRANT SELECT,UPDATE ON TABLE password_hash_types_id_seq TO yaptest_user;
 GRANT INSERT,SELECT ON TABLE password_types TO yaptest_user;
 -- Name: password_types_id_seq; Type: ACL; Schema: public; Owner: postgres
 REVOKE ALL ON TABLE password_types_id_seq FROM PUBLIC;
 REVOKE ALL ON TABLE password_types_id_seq FROM postgres;
-GRANT ALL ON TABLE password_types_id_seq TO postgres;
-GRANT INSERT,SELECT ON TABLE password_types_id_seq TO yaptest_user;
+GRANT SELECT,UPDATE ON TABLE password_types_id_seq TO postgres;
+GRANT SELECT,UPDATE ON TABLE password_types_id_seq TO yaptest_user;
 GRANT INSERT,SELECT,UPDATE ON TABLE port_info TO yaptest_user;
 -- Name: port_info_id_seq; Type: ACL; Schema: public; Owner: postgres
 REVOKE ALL ON TABLE port_info_id_seq FROM PUBLIC;
 REVOKE ALL ON TABLE port_info_id_seq FROM postgres;
-GRANT ALL ON TABLE port_info_id_seq TO postgres;
+GRANT SELECT,UPDATE ON TABLE port_info_id_seq TO postgres;
 GRANT SELECT,UPDATE ON TABLE port_info_id_seq TO yaptest_user;
 GRANT INSERT,SELECT ON TABLE port_keys TO yaptest_user;
 -- Name: port_keys_id_seq; Type: ACL; Schema: public; Owner: postgres
 REVOKE ALL ON TABLE port_keys_id_seq FROM PUBLIC;
 REVOKE ALL ON TABLE port_keys_id_seq FROM postgres;
-GRANT ALL ON TABLE port_keys_id_seq TO postgres;
-GRANT INSERT,UPDATE ON TABLE port_keys_id_seq TO yaptest_user;
+GRANT SELECT,UPDATE ON TABLE port_keys_id_seq TO postgres;
+GRANT SELECT,UPDATE ON TABLE port_keys_id_seq TO yaptest_user;
 GRANT INSERT,SELECT,DELETE ON TABLE port_progress TO yaptest_user;
 -- Name: port_progress_id_seq; Type: ACL; Schema: public; Owner: postgres
 REVOKE ALL ON TABLE port_progress_id_seq FROM PUBLIC;
 REVOKE ALL ON TABLE port_progress_id_seq FROM postgres;
-GRANT ALL ON TABLE port_progress_id_seq TO postgres;
-GRANT INSERT,SELECT,UPDATE ON TABLE port_progress_id_seq TO yaptest_user;
+GRANT SELECT,UPDATE ON TABLE port_progress_id_seq TO postgres;
+GRANT SELECT,UPDATE ON TABLE port_progress_id_seq TO yaptest_user;
 -- Name: ports; Type: ACL; Schema: public; Owner: yaptest_user
 REVOKE ALL ON TABLE ports FROM yaptest_user;
 GRANT ALL ON TABLE ports TO yaptest_user;
@@ -1205,13 +1203,13 @@ GRANT INSERT,SELECT ON TABLE progress_states TO yaptest_user;
 -- Name: progress_states_id_seq; Type: ACL; Schema: public; Owner: postgres
 REVOKE ALL ON TABLE progress_states_id_seq FROM PUBLIC;
 REVOKE ALL ON TABLE progress_states_id_seq FROM postgres;
-GRANT ALL ON TABLE progress_states_id_seq TO postgres;
-GRANT INSERT,SELECT,UPDATE ON TABLE progress_states_id_seq TO yaptest_user;
+GRANT SELECT,UPDATE ON TABLE progress_states_id_seq TO postgres;
+GRANT SELECT,UPDATE ON TABLE progress_states_id_seq TO yaptest_user;
 GRANT INSERT,SELECT,UPDATE,DELETE ON TABLE test_areas TO yaptest_user;
 -- Name: test_areas_id_seq; Type: ACL; Schema: public; Owner: postgres
 REVOKE ALL ON TABLE test_areas_id_seq FROM PUBLIC;
 REVOKE ALL ON TABLE test_areas_id_seq FROM postgres;
-GRANT ALL ON TABLE test_areas_id_seq TO postgres;
+GRANT SELECT,UPDATE ON TABLE test_areas_id_seq TO postgres;
 GRANT SELECT,UPDATE ON TABLE test_areas_id_seq TO yaptest_user;
 -- Name: transport_protocols; Type: ACL; Schema: public; Owner: yaptest_user
 REVOKE ALL ON TABLE transport_protocols FROM yaptest_user;
@@ -1266,9 +1264,9 @@ grant select, update, insert on interfaces to yaptest_user;
 grant select, insert on topology to yaptest_user;
 
 
-grant select, update, insert on boxes_id_seq to yaptest_user;
-grant select, update, insert on interfaces_id_seq to yaptest_user;
-grant select, update, insert on topology_id_seq to yaptest_user;
+grant select, update on boxes_id_seq to yaptest_user;
+grant select, update on interfaces_id_seq to yaptest_user;
+grant select, update on topology_id_seq to yaptest_user;
 
 alter table interfaces add column hop int;
 create view view_topology as SELECT i1.hop AS hop_number, i2.hop AS prev_hop_number, test_areas.name AS test_area_name, boxes.test_area_id, i1.ip_address, i2.ip_address AS prev_hop_ip, i1.id AS interface_id, i2.id AS prev_hop_interface_id
@@ -1303,7 +1301,7 @@ create view view_port_info_progress as select port_info.id as port_info_id, test
 
 grant select on view_port_info_progress to yaptest_user;
 
-grant select, update, insert on port_info_progress_id_seq to yaptest_user;
+grant select, update on port_info_progress_id_seq to yaptest_user;
 
 CREATE INDEX credspeedup ON credentials USING btree (host_id, port_id, "domain", username, password_hash_type_id, credential_type_id);
 CREATE INDEX credspeedup2 ON credentials USING btree (hash_half2, password_hash_type_id);

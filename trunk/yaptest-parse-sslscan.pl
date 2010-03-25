@@ -52,6 +52,12 @@ while (my $filename = shift) {
 			$y->insert_issue(name => "ssl_weak_ciphers", ip_address => $ip, port => $port, transport_protocol => 'TCP');
 		}
 
+		# Accepted  TLSv1  256 bits  ADH-AES256-SHA
+		if ($line =~ /^\s*Accepted\s+(SSLv2|TLSv1|SSLv3)\s+(\d+)\s+bits\s+ADH-/) {
+			print "PARSED: Weak Cipher: $line\n";
+
+			$y->insert_issue(name => "ssl_anon_dh", ip_address => $ip, port => $port, transport_protocol => 'TCP');
+		}
 	}
 }
 $y->commit;
