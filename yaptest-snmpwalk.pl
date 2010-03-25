@@ -19,7 +19,7 @@ my @miblist = (
 	{ mib => "1.3.6.1.2.1.1.1",           label => "system-desc" },
 	{ mib => "1.3.6.1.2.1.2.1.0",         label => "nic-count" },
 	{ mib => "ipAdEntAddr",               label => "interface-ips" },
-	{ mib => "enterprises.42.3.12.1.1.8", label => "unix-process-owners" },
+	{ mib => "enterprises.42.3.12.1.8",   label => "unix-process-owners" },
 	{ mib => "1.3.6.1.4.1.77.1.2.25.1.1", label => "win-usernames" },
 	{ mib => "1.3.6.1.4.1.77.1.2.27.1.1", label => "win-lanman-shares" },
 	{ mib => "1.3.6.1.2.1.25.4.2.1.2",    label => "service-progs" },
@@ -45,17 +45,13 @@ foreach my $mib_href (@miblist) {
 			print "WARNING: Only UDP is supported.  Ignoring.\n";
 			next;
 		}
-		if ($port != 161) {
-			print "WARNING: Only port 161 is supported.  Ignoring.\n";
-			next;
-		}
 		next unless (defined($community));
 		my %parser = ();
 		%parser = (parser => "yaptest-parse-snmpwalk.pl") if ($label eq "win-usernames");
 		%parser = (parser => "yaptest-parse-snmpwalk.pl") if ($label eq "unix-process-owners");
 		$y->run_command_save_output(
-			"snmpwalk -Os -v 1 -c '$community' $ip $mib",
-			"snmpwalk-$ip-$community-$label.out",
+			"snmpwalk -Os -v 1 -c '$community' $ip:$port $mib",
+			"snmpwalk-$ip-$port-$community-$label.out",
 			max_lines          => 20000,
 			parallel_processes => 25,
 			inactivity_timeout => 10,

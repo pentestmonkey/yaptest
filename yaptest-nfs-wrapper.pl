@@ -114,13 +114,13 @@ if (defined($uid)) {
 			my $to_send = "chmod 4755 .test-file-please-delete\n";
 			$exp->send("$to_send"); 
 			$result = $exp->expect($timeout, $prompt);
-			my $to_send = "uid 0\n";
+			$to_send = "uid 0\n";
 			$exp->send("$to_send"); 
 			$result = $exp->expect($timeout, $prompt, $fail_pattern);
 			$to_send = "mknod .test-nod-please-delete b 85 0\n";
 			$exp->send("$to_send"); 
 			$result = $exp->expect($timeout, $prompt);
-			my $to_send = "uid $uid\n";
+			$to_send = "uid $uid\n";
 			$exp->send("$to_send"); 
 			$result = $exp->expect($timeout, $prompt, $fail_pattern);
 			print "\n[D] STATE 2.8: Need another directory listing\n";

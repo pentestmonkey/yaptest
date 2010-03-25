@@ -29,16 +29,15 @@ dropdb $YAPTEST_TEMPLATE_NAME
 echo "DROP USER yaptest_user;" | $PSQL $EXISTING_DATABASE
 
 createdb $YAPTEST_TEMPLATE_NAME
-echo "CREATE USER yaptest_user;" | $PSQL $YAPTEST_TEMPLATE_NAME
 
 # In order to create databases we need to do things slightly
 # differently on postgres 8.2+
-PGVERSION82=`$PSQL -U postgres template1 -c 'SELECT version()' | grep 'PostgreSQL 8.2'`
+PGVERSION82=`$PSQL -U postgres template1 -c 'SELECT version()' | grep 'PostgreSQL 8.[23456789]'`
 if [ -z "$PGVERSION82" ]; then
+	echo "CREATE USER yaptest_user;" | $PSQL $YAPTEST_TEMPLATE_NAME
 	echo "UPDATE pg_shadow SET usecreatedb = 't' WHERE usename = 'yaptest_user';" | $PSQL $YAPTEST_TEMPLATE_NAME
 else
-	echo "CREATE ROLE yaptest_createdb_role WITH createdb;" | $PSQL $YAPTEST_TEMPLATE_NAME
-	echo "GRANT yaptest_createdb_role TO yaptest_user;" | $PSQL $YAPTEST_TEMPLATE_NAME
+	echo "CREATE USER yaptest_user CREATEDB ;" | $PSQL $YAPTEST_TEMPLATE_NAME
 fi
 cat $YAPTEST_TEMPLATE_SQL | $PSQL $YAPTEST_TEMPLATE_NAME
 

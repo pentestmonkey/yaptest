@@ -40,6 +40,7 @@ while (my $filename = shift) {
 			print "PARSED: IP=$ip PORT=$port USER=$username\n";
 
 			$y->insert_credential(ip_address => $ip, username => $username, credential_type_name => "os_unix");
+			$y->insert_issue(name => "ident_user_enum", ip_address => $ip, port => 113, transport_protocol => 'tcp');
 		
 		}
 	}

@@ -258,9 +258,6 @@ sub _createdb {
 	# Can't use prepared statements for CREATE DATABASE, so it's important
 	# that the untainting above is effective.
 	# TODO: Use db quoting functions
-	# TODO: Support postgres 8.2.  Here's how, but I don't fancy patching
-	#       the .pm file at runtime.
-	# $dbh->do("SET ROLE yaptest_createdb_role");
 	# $dbh->do("
 	#          CREATE DATABASE " . $args{dbname} . "
 	#          OWNER yaptest_createdb_role
