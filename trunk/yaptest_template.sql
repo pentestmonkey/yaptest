@@ -1350,3 +1350,67 @@ create view view_nmap_info as SELECT p1.value, p1.port_info_id, p1.port_info_key
          LEFT JOIN view_port_info p2 ON vp.port_id = p2.port_id AND p2.port_info_key = 'nmap_service_version'::text;
 
 grant select on view_nmap_info to yaptest_user;
+
+-- this patch is just to support some upcoming changes to yaptestfe
+-- you can paste it if you want to retrofit an existing database
+drop view view_hosts_ytfe;
+drop view view_windows_host_info;
+drop view view_mac_addresses;
+drop view view_host_info;
+
+create or replace view view_host_info as 
+ SELECT test_areas.name AS test_area_name, test_areas.id AS test_area_id, hosts.id AS host_id, host_info.id as host_info_id, host_key_id, hosts.ip_address, host_keys.name AS "key", host_info.value
+   FROM hosts
+   JOIN test_areas ON hosts.test_area_id = test_areas.id
+   JOIN host_info ON host_info.host_id = hosts.id
+   JOIN host_keys ON host_info.host_key_id = host_keys.id
+  ORDER BY test_areas.name, hosts.ip_address;
+grant select on view_host_info to yaptest_user;
+
+create or replace view view_hosts_ytfe as
+select view_hosts.host_id, view_hosts.test_area_id, view_hosts.test_area_name, view_hosts.ip_address, hostname, name_type, hi1.value as finished, hi2.value as owned
+from view_hosts
+left join view_host_info as hi1 on view_hosts.host_id = hi1.host_id and hi1.key = 'yaptestfe_finished'
+left join view_host_info as hi2 on view_hosts.host_id = hi2.host_id and hi2.key = 'yaptestfe_owned';
+grant select on view_hosts_ytfe to yaptest_user;
+
+
+create view view_windows_host_info as
+ SELECT DISTINCT hosts.id AS host_id, test_areas.id AS test_area_id, test_areas.name AS test_area_name, hosts.ip_address, hostnames.name AS hostname, v1.value AS os, v2.value AS dom_name,
+        CASE
+            WHEN v3.value IS NULL THEN 'N'::text
+            ELSE 'Y'::text
+        END AS dc, v4.value AS member_of, v5.value AS smb_server_version, v6.value AS device_info, v7.value AS domain_sid, v8.value AS pwd_complexity_flags, v9.value AS lockout_threshold, v10.value AS lockout_duration, v11.value AS reset_lockout_ctr, v12.value AS windows_long_dom
+   FROM host_info
+   JOIN hosts ON host_info.host_id = hosts.id
+   JOIN hostnames ON host_info.host_id = hostnames.host_id
+   JOIN hostname_types ON hostnames.name_type = hostname_types.id
+   JOIN host_keys ON host_info.host_key_id = host_keys.id
+   JOIN test_areas ON hosts.test_area_id = test_areas.id
+   LEFT JOIN view_host_info v1 ON hosts.id = v1.host_id AND v1."key"::text = 'os'::text
+   LEFT JOIN view_host_info v2 ON hosts.id = v2.host_id AND v2."key"::text = 'windows_domwkg'::text
+   LEFT JOIN view_host_info v3 ON hosts.id = v3.host_id AND v3."key"::text = 'windows_dc'::text
+   LEFT JOIN view_host_info v4 ON hosts.id = v4.host_id AND v4."key"::text = 'windows_member_of'::text
+   LEFT JOIN view_host_info v5 ON hosts.id = v5.host_id AND v5."key"::text = 'smb_server'::text
+   LEFT JOIN view_host_info v6 ON hosts.id = v6.host_id AND v6."key"::text = 'device_info'::text
+   LEFT JOIN view_host_info v7 ON hosts.id = v7.host_id AND v7."key"::text = 'windows_domain_sid'::text
+   LEFT JOIN view_host_info v8 ON hosts.id = v8.host_id AND v8."key"::text = 'windows_password_complexity'::text
+   LEFT JOIN view_host_info v9 ON hosts.id = v9.host_id AND v9."key"::text = 'windows_acct_lockout_threshold'::text
+   LEFT JOIN view_host_info v10 ON hosts.id = v10.host_id AND v10."key"::text = 'windows_acct_lockout_duration'::text
+   LEFT JOIN view_host_info v11 ON hosts.id = v11.host_id AND v11."key"::text = 'windows_reset_acct_lockout_ctr'::text
+   LEFT JOIN view_host_info v12 ON hosts.id = v12.host_id AND v12."key"::text = 'windows_long_dom'::text
+  WHERE hostname_types.name_type::text = 'windows_hostname'::text
+  ORDER BY hosts.id, test_areas.id, test_areas.name, hosts.ip_address, hostnames.name, v1.value, v2.value,
+CASE
+    WHEN v3.value IS NULL THEN 'N'::text
+    ELSE 'Y'::text
+END, v4.value, v5.value, v6.value, v7.value, v8.value, v9.value, v10.value, v11.value, v12.value;
+grant select on view_windows_host_info to yaptest_user;
+
+create view view_mac_addresses as
+ SELECT view_hosts.host_id, view_hosts.test_area_id, view_hosts.test_area_name, view_hosts.ip_address, view_hosts.hostname, view_hosts.name_type, hi1.value AS finished, hi2.value AS owned
+   FROM view_hosts
+   LEFT JOIN view_host_info hi1 ON view_hosts.host_id = hi1.host_id AND hi1."key"::text = 'yaptestfe_finished'::text
+   LEFT JOIN view_host_info hi2 ON view_hosts.host_id = hi2.host_id AND hi2."key"::text = 'yaptestfe_owned'::text;
+grant select on view_mac_addresses to yaptest_user;
+-- end of patch
