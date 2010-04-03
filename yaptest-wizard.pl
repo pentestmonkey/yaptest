@@ -239,7 +239,7 @@ sub create_new_db {
 	my $y = yaptest->new($dbname, 'yaptest.conf');
 	
 	print "Restarting wizard with new configuration\n";
-	exec("source env.sh; $0");
+	exec(`cat env.sh;` . $0);
 }
 
 END {
