@@ -1,6 +1,8 @@
 #summary A list of all yaptest's dependencies
 #labels yaptest,dependencies,modules,programs
 
+Also see http://pentestmonkey.net/projects/yaptest/yaptest-installation/ for links to unpackaged dependencies.
+
 =Yaptest depends on the following PERL modules=
 
 || *Dependency* || *Ubuntu 9.10 Package Name* ||
