@@ -32,7 +32,12 @@ my $is_child = 0;
 
 BEGIN {
 	# Print banner to make output less messy
-	our $VERSION = "0.2.1";
+	my $svn = '$Revision$';
+	$svn =~ s/[^0-9]//g;
+	if ($svn) {
+		$svn = "-svn-" . $svn;
+	}
+	our $VERSION = "0.2.1$svn";
 	my $message1 = "Starting " . basename($0) ;
 	my $message2 = "*  [ Using yaptest v$yaptest::VERSION - http://pentestmonkey.net/projects/yaptest ]  *";
 	my $space_count = int((length($message2) - length($message1) - 2) / 2);
