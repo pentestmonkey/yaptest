@@ -32,7 +32,6 @@ tcp_port_based_tests () {
 	yaptest-hoppy.pl
 	yaptest-enum4linux.pl
 	yaptest-ssh-keyscan.pl
-	yaptest-sshprobe.pl
 	password_guessing
 }
 
