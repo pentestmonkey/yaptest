@@ -86,3 +86,4 @@ Also see http://pentestmonkey.net/projects/yaptest/yaptest-installation/ for lin
 || xdpyinfo || x11-utils ||
 || xwd || x11-apps ||
 || xwud || x11-apps ||
+|| udp-proto-scanner.pl || NONE ||
