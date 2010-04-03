@@ -3,7 +3,7 @@
 
 =Yaptest depends on the following PERL modules=
 
-|| Dependency || Ubuntu 9.10 Package Name ||
+|| *Dependency* || *Ubuntu 9.10 Package Name* ||
 || DBD::Pg || libdbd-pg-perl ||
 || Parallel::ForkManager || libparallel-forkmanager-perl ||
 || Data::Dumper || libdata-dump-perl ||
@@ -23,7 +23,7 @@
 
 =Yaptest depends on the following external programs=
 
-|| Dependency || Ubuntu 9.10 Package Name ||
+|| *Dependency* || *Ubuntu 9.10 Package Name* ||
 || yapscan || NONE ||
 || arp-scan || arp-scan ||
 || nmap || nmap ||
