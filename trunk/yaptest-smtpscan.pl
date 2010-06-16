@@ -18,9 +18,9 @@ die $usage if shift;
 my $y = yaptest->new();
 
 $y->run_test(
-	command => "smtpscan -i 60 ::IP::",
+	command => "smtpscan -i 60 -p ::PORT:: ::IP::",
 	parallel_processes => $max_processes,
-	filter => { port => 25, transport_protocol => 'tcp' },
+	filter => { port_info => "nmap_service_name = smtp" },
 	max_lines => 1000,
 	inactivity_timeout => 300
 );
