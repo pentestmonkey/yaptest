@@ -430,7 +430,7 @@ sub nmap_service_based_tests {
 	{
 		    push(@torun, "yaptest-hoppy.pl");
 	}
-	push(@torun, "yaptest-sslscan.pl")
+	push(@torun, "yaptest-sslscan.pl");
 
 
 	my $pm = new Parallel::ForkManager($max_processes);
