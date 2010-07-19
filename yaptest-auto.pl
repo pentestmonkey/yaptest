@@ -26,6 +26,12 @@
 # auto-nessus = 0/1 - default on
 #
 #
+### - Tools
+#
+# auto-hoppy = 0/1 - default on
+# auto-nikto = 0/1 - default on
+#
+#
 ### TODO
 # 1 - add openvas checks
 #
@@ -130,15 +136,15 @@ else
 
 system('yaptest-nbtscan.pl');           # Get windows hostname info
 
-#tcp_port_based_tests();
+#run the tcp based tests on the ports we have found so far
+tcp_port_based_tests();
+
+# Run the password guess tasks
 password_guessing();
 
 
 # wait for the full tcp scans to come back
 $procfulltcp->wait();
-# rerun the tcp port based tests
-# yaptest will only test the new ports listsed
-tcp_port_based_tests();
 
 # run nessus, background it as it can take quite some time!
 my $runNessus = 1;
@@ -148,6 +154,24 @@ if(defined($y->get_config('auto-nessus')))
         if($y->get_config('auto-nessus') != 1)
         {
                  $runNessus = 0;
+        }
+}
+
+my $runhoppy = 1;
+if(defined($y->get_config('auto-hoppy')))
+{
+        if($y->get_config('auto-hoppy') != 1)
+        {
+                 $runhoppy = 0;
+        }
+}
+
+my $runNikto = 1;
+if(defined($y->get_config('auto-nikto')))
+{
+        if($y->get_config('auto-nikto') != 1)
+        {
+                 $runNikto = 0;
         }
 }
 
@@ -176,6 +200,9 @@ system("yaptest-bannergrab.pl");
 #
 nmap_service_based_tests();
 
+# rerun the tcp port based tests
+# yaptest will only test the new ports listsed
+tcp_port_based_tests();
 
 
 #wait for the nessus scans to finish
@@ -234,11 +261,11 @@ sub tcp_port_based_tests
         push(@torun, "yaptest-oscanner.pl");
         push(@torun, "yaptest-finger-user-enum.pl");
         push(@torun, "yaptest-smtp-user-enum.pl");
-        push(@torun, "yaptest-sslscan.pl");
+        
         push(@torun, "yaptest-vessl.pl");
         push(@torun, "yaptest-httprint.pl");
         push(@torun, "yaptest-smtpscan.pl");
-        push(@torun, "yaptest-hoppy.pl");
+
         push(@torun, "yaptest-x-open.pl");
         push(@torun, "yaptest-enum4linux.pl");
         push(@torun, "yaptest-ssh-keyscan.pl");
@@ -395,7 +422,16 @@ sub nmap_service_based_tests {
 
 	push(@torun, "yaptest-ldapsearch.pl");
 	push(@torun, "yaptest-telnet-fuser.pl");
-	push(@torun, "yaptest-nikto.pl");
+	if($runNikto)
+	{
+		    push(@torun, "yaptest-nikto.pl");
+	}
+	if($runhoppy)
+	{
+		    push(@torun, "yaptest-hoppy.pl");
+	}
+	push(@torun, "yaptest-sslscan.pl")
+
 
 	my $pm = new Parallel::ForkManager($max_processes);
 
