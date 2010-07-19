@@ -42,7 +42,7 @@ if ($command eq "add") {
 			}
 			else
 			{
-				print "NOTE: Not inserting $ip - Invalid IP address
+				print "NOTE: Not inserting $ip - Invalid IP address";
 			}
 		}
 	} else {
