@@ -33,8 +33,17 @@ if ($command eq "add") {
 		while (<FILE>) {
 			chomp;
 			my $ip = $_;
-			print "Inserting $ip\n";
-			$y->insert_ip($ip);
+			
+			#test that the ip looks like an ip
+			if($ip =~ m/^\d\d?\d?\.\d\d?\d?\.\d\d?\d?\.\d\d?\d?$/)
+			{
+				print "Inserting $ip\n";
+				$y->insert_ip($ip);
+			}
+			else
+			{
+				print "NOTE: Not inserting $ip - Invalid IP address
+			}
 		}
 	} else {
 		unless (@ARGV) {
