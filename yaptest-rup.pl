@@ -16,7 +16,7 @@ NB: rup is required to be in the path.
 my $y = yaptest->new();
 
 $y->run_test(
-	command => "rup -d ::IP::",
+	command => "rup ::IP::",
 	filter => { port_info => 'rpcinfo_tcp like % 100001 %' },
 	output_file => "rup-d-::IP::.out"
 );
