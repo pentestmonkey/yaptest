@@ -28,7 +28,7 @@ echo "update pg_database set datistemplate = 'f', datallowconn = 't' where datna
 dropdb $YAPTEST_TEMPLATE_NAME
 echo "DROP USER yaptest_user;" | $PSQL $EXISTING_DATABASE
 
-createdb -E UNICODE $YAPTEST_TEMPLATE_NAME
+createdb $YAPTEST_TEMPLATE_NAME
 
 # In order to create databases we need to do things slightly
 # differently on postgres 8.2+

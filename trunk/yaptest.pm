@@ -270,7 +270,6 @@ sub _createdb {
 	# ");
 	$dbh->do("
 		CREATE DATABASE " . $args{dbname} . "
-		WITH ENCODING 'UNICODE'
 		OWNER " . $args{username} . "
 		TEMPLATE " . $args{template} . "
 	");
