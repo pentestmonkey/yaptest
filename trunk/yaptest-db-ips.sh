@@ -5,7 +5,7 @@ if [ ! -z $1 ]; then
 	exit 0
 fi
 
-if [ "$UID" != "0" ] && [ "$EUID" != "0" ]; then
+if [ `id -u` != "0" ]; then
 	echo "ERROR: Your UID/EUID isn't 0.  You need to root to run some tests.  Use sudo or run as root.\n"
 	exit 1;
 fi
