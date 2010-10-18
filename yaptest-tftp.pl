@@ -37,14 +37,14 @@ $y->run_test(
 system("echo testing > tftp-test.txt");
 
 $y->run_test(
-	command => "tftp -v ::IP:: -c put tftp-test.txt",
+	command => "echo put tftp-test.txt | tftp ::IP::",
 	filter => { port => 69, transport_protocol => 'udp' },
 	parallel_processes => 10,
 	output_file => 'tftp-get-::IP::.out'
 );
 
 $y->run_test(
-	command => "tftp -v ::IP:: -c get tftp-test.txt",
+	command => "echo get tftp-test.txt | tftp ::IP::",
 	filter => { port => 69, transport_protocol => 'udp' },
 	parallel_processes => 10,
 	output_file => 'tftp-get-::IP::.out'
