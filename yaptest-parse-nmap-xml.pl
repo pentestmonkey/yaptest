@@ -29,7 +29,7 @@ while ($file = shift) {
 	if (open (FILE, "<$file")) {
 		local undef $/;
 		my $xml_string = <FILE>;
-		@xml_strings = map { '<?xml version="1.0" ?>' . $_ } split '<\?xml version="1.0" \?>', $xml_string;
+                @xml_strings = map { /<.xml version="1.0".*?>/ . $_ } split /<.xml version="1.0".*?>/, $xml_string;
 		shift @xml_strings; # discard first element - empty
 	} else {
 		print "WARNING: Can't open $file for reading: $!.  Skipping.\n";
