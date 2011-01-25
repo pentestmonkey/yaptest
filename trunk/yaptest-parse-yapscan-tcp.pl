@@ -47,8 +47,13 @@ sub yapscan {
 		my $port = $2;
 		my $ttl = $3;
 		my $ipid = $4;
-		print "PARSED: IP=$ip, PORT=$port, DESC=$ttl, IPID=$ipid\n";
-		$connection->insert_port(ip => $ip, transport_protocol => "tcp", port => $port);
+		if ($line =~ /AR/) {
+			print "PARSED: (closed) IP=$ip, PORT=$port, DESC=$ttl, IPID=$ipid\n";
+			$connection->insert_ip($ip);
+		} else {
+			print "PARSED: (open) IP=$ip, PORT=$port, DESC=$ttl, IPID=$ipid\n";
+			$connection->insert_port(ip => $ip, transport_protocol => "tcp", port => $port);
+		}
 		$connection->insert_router_icmp_ttl($ip, $ttl); # todo this uses icmp_ttl, but it's a tcp ttl
 		$connection->commit if $commit;
 	}
