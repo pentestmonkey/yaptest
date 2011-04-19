@@ -30,6 +30,10 @@ while ($file = shift) {
 		local undef $/;
 		my $xml_string = <FILE>;
                 @xml_strings = map { /<.xml version="1.0".*?>/ . $_ } split /<.xml version="1.0".*?>/, $xml_string;
+		foreach my $x (@xml_strings) {
+			# Strip: <?xml-stylesheet href="file:///opt/local/share/nmap/nmap.xsl" type="text/xsl"?>
+			$x =~ s/<\?xml-stylesheet .*?\?>//;
+		}
 		shift @xml_strings; # discard first element - empty
 	} else {
 		print "WARNING: Can't open $file for reading: $!.  Skipping.\n";
