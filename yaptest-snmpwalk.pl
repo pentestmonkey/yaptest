@@ -18,14 +18,14 @@ die $usage if shift;
 my @miblist = (
 	{ mib => "1.3.6.1.2.1.1.1",           label => "system-desc" },
 	{ mib => "1.3.6.1.2.1.2.1.0",         label => "nic-count" },
-	{ mib => "ipAdEntAddr",               label => "interface-ips" },
-	{ mib => "enterprises.42.3.12.1.8",   label => "unix-process-owners" },
+	{ mib => "1.3.6.1.2.1.4.20.1.1",      label => "interface-ips" },
+	{ mib => "1.3.6.1.4.1.42.3.12.1.8",   label => "unix-process-owners" },
 	{ mib => "1.3.6.1.4.1.77.1.2.25.1.1", label => "win-usernames" },
 	{ mib => "1.3.6.1.4.1.77.1.2.27.1.1", label => "win-lanman-shares" },
 	{ mib => "1.3.6.1.2.1.25.4.2.1.2",    label => "service-progs" },
 	{ mib => "1.3.6.1.4.1.77.1.2.3.1.1",  label => "win-service-names" },
 	{ mib => "1.3.6.1.2.1.25.6.3.1.2",    label => "installed-software" },
-	{ mib => "enterprises",               label => "enterprises" },
+	{ mib => "1.3.6.1.4.1",               label => "enterprises" },
 	{ mib => ".",                         label => "all" }
 );
 
