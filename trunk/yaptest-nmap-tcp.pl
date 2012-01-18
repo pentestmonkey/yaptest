@@ -51,7 +51,7 @@ unless (geteuid == 0) {
 
 if ($scan_type eq "custom_range") {
 	$y->run_test (
-		command     => "nmap -sS -P0 -n -O -v -A --version-all --append_output -oA nmap-tcp-::IP::-custom.out -p $portlist ::IP::",
+		command     => "nmap -sS -PN -n -O -v -A --version-all --append_output -oA nmap-tcp-::IP::-custom.out -p $portlist ::IP::",
 		parallel_processes => $max_processes,
 		output_file => "nmap-tcp-::IP::-custom.out",
 	);
@@ -59,7 +59,7 @@ if ($scan_type eq "custom_range") {
 
 if ($scan_type eq "quick") {
 	$y->run_test (
-		command     => "nmap -sS -P0 -n -O -v -A --version-all --append_output -oA nmap-tcp-::IP::-quick.out ::IP::",
+		command     => "nmap -sS -PN -n -O -v -A --version-all --append_output -oA nmap-tcp-::IP::-quick.out ::IP::",
 		parallel_processes => $max_processes,
 		output_file => "nmap-tcp-::IP::-quick.out",
 	);
@@ -67,49 +67,49 @@ if ($scan_type eq "quick") {
 
 if ($scan_type eq "full") {
 	$y->run_test (
-		command     => "nmap -sS -P0 -n -O -v -A --version-all --append_output -oA nmap-tcp-::IP::-1-8192.out -p 1-8192 ::IP::",
+		command     => "nmap -sS -PN -n -O -v -A --version-all --append_output -oA nmap-tcp-::IP::-1-8192.out -p 1-8192 ::IP::",
 		parallel_processes => $max_processes,
 		output_file => "nmap-tcp-::IP::-1-8192.out",
 	);
 	
 	$y->run_test (
-		command     => "nmap -sS -P0 -n -O -v -A --version-all --append_output -oA nmap-tcp-::IP::-8193-16384.out -p 8193-16384 ::IP::",
+		command     => "nmap -sS -PN -n -O -v -A --version-all --append_output -oA nmap-tcp-::IP::-8193-16384.out -p 8193-16384 ::IP::",
 		parallel_processes => $max_processes,
 		output_file => "nmap-tcp-::IP::-8193-16384.out",
 	);
 	
 	$y->run_test (
-		command     => "nmap -sS -P0 -n -O -v -A --version-all --append_output -oA nmap-tcp-::IP::-16385-24576.out -p 16385-24576 ::IP::",
+		command     => "nmap -sS -PN -n -O -v -A --version-all --append_output -oA nmap-tcp-::IP::-16385-24576.out -p 16385-24576 ::IP::",
 		parallel_processes => $max_processes,
 		output_file => "nmap-tcp-::IP::-16385-24576.out",
 	);
 	
 	$y->run_test (
-		command     => "nmap -sS -P0 -n -O -v -A --version-all --append_output -oA nmap-tcp-::IP::-24577-32768.out -p 24577-32768 ::IP::",
+		command     => "nmap -sS -PN -n -O -v -A --version-all --append_output -oA nmap-tcp-::IP::-24577-32768.out -p 24577-32768 ::IP::",
 		parallel_processes => $max_processes,
 		output_file => "nmap-tcp-::IP::-24577-32768.out",
 	);
 	
 	$y->run_test (
-		command     => "nmap -sS -P0 -n -O -v -A --version-all --append_output -oA nmap-tcp-::IP::-32769-40960.out -p 32769-40960 ::IP::",
+		command     => "nmap -sS -PN -n -O -v -A --version-all --append_output -oA nmap-tcp-::IP::-32769-40960.out -p 32769-40960 ::IP::",
 		parallel_processes => $max_processes,
 		output_file => "nmap-tcp-::IP::-32769-40960.out",
 	);
 	
 	$y->run_test (
-		command     => "nmap -sS -P0 -n -O -v -A --version-all --append_output -oA nmap-tcp-::IP::-40961-49152.out -p 40961-49152 ::IP::",
+		command     => "nmap -sS -PN -n -O -v -A --version-all --append_output -oA nmap-tcp-::IP::-40961-49152.out -p 40961-49152 ::IP::",
 		parallel_processes => $max_processes,
 		output_file => "nmap-tcp-::IP::-40961-49152.out",
 	);
 	
 	$y->run_test (
-		command     => "nmap -sS -P0 -n -O -v -A --version-all --append_output -oA nmap-tcp-::IP::-49153-57344.out -p 49153-57344 ::IP::",
+		command     => "nmap -sS -PN -n -O -v -A --version-all --append_output -oA nmap-tcp-::IP::-49153-57344.out -p 49153-57344 ::IP::",
 		parallel_processes => $max_processes,
 		output_file => "nmap-tcp-::IP::-49153-57344.out",
 	);
 	
 	$y->run_test (
-		command     => "nmap -sS -P0 -n -O -v -A --version-all --append_output -oA nmap-tcp-::IP::-57345-65536.out -p 57345-65535 ::IP::",
+		command     => "nmap -sS -PN -n -O -v -A --version-all --append_output -oA nmap-tcp-::IP::-57345-65536.out -p 57345-65535 ::IP::",
 		parallel_processes => $max_processes,
 		output_file => "nmap-tcp-::IP::-57345-65536.out",
 	);
@@ -117,7 +117,7 @@ if ($scan_type eq "full") {
 
 if ($scan_type eq "openonly") {
 	$y->run_test (
-		command => "nmap -sS -P0 -n -O -v -A --version-all --append_output -oA nmap-tcp-::IP::.out -p ::PORTLIST:: ::IP::",
+		command => "nmap -sS -PN -n -O -v -A --version-all --append_output -oA nmap-tcp-::IP::.out -p ::PORTLIST:: ::IP::",
 		filter => { transport_protocol => 'TCP' },
 		parallel_processes => $max_processes,
 		output_file => "nmap-tcp-::IP::-openonly.out"

@@ -35,7 +35,7 @@ print "Note: Timeout set to $timeout secs.  Change this by using yaptest-config.
 print "      to set 'nmap_udp_timeout' to a different value.\n";
 
 $y->run_test (
-	command => "nice nmap -sU -P0 -n -O -v -oA nmap-udp-::IP::.out ::IP::",
+	command => "nice nmap -sU -PN -n -O -v -oA nmap-udp-::IP::.out ::IP::",
 	parallel_processes => $max_processes,
 	timeout => $timeout,
 	output_file => "nmap-udp-::IP::.out"
@@ -45,7 +45,7 @@ $y->run_test (
 # This is often the case for Windows boxes (XP and prior) which don't limit the rate
 # at which they send ICMP Port Unreachable messages.
 $y->run_test (
-	command => "nice nmap -sU -p- -P0 -n -O -v -oA nmap-udp-full-::IP::.out ::IP::",
+	command => "nice nmap -sU -p- -PN -n -O -v -oA nmap-udp-full-::IP::.out ::IP::",
 	filter => { host_info => 'nmap_quick_udp_scan_time < 10' },
 	parallel_processes => $max_processes,
 	timeout => $timeout,
@@ -53,7 +53,7 @@ $y->run_test (
 );
 
 $y->run_test (
-	command => "nice nmap -sU -P0 -n -O -v -A --version-all --append_output -oA nmap-udp-::IP::-openonly.out -p ::PORTLIST:: ::IP::",
+	command => "nice nmap -sU -PN -n -O -v -A --version-all --append_output -oA nmap-udp-::IP::-openonly.out -p ::PORTLIST:: ::IP::",
 	filter => { transport_protocol => 'UDP' },
 	parallel_processes => $max_processes,
 	timeout => $timeout,
