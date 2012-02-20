@@ -50,9 +50,11 @@ sub yapscan {
 		if ($line =~ /AR/) {
 			print "PARSED: (closed) IP=$ip, PORT=$port, DESC=$ttl, IPID=$ipid\n";
 			$connection->insert_ip($ip);
-		} else {
+		} elsif ($line =~ /FLAGS=S/) {
 			print "PARSED: (open) IP=$ip, PORT=$port, DESC=$ttl, IPID=$ipid\n";
 			$connection->insert_port(ip => $ip, transport_protocol => "tcp", port => $port);
+		} else {
+			print "PARSED: (open) IP=$ip, PORT=$port, DESC=$ttl, IPID=$ipid - WARNING unrecognised flags.  Ignoring\n";
 		}
 		$connection->insert_router_icmp_ttl($ip, $ttl); # todo this uses icmp_ttl, but it's a tcp ttl
 		$connection->commit if $commit;
