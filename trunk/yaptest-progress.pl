@@ -51,6 +51,8 @@ You might want to reset all entries, or just for some IPs:
   \$ yaptest-progress.pl reset port_18 -i 10.0.0.1
   \$ yaptest-progress.pl reset port_18 -p 8080
   \$ yaptest-progress.pl reset port_18 -i 10.0.0.1 -p 8080
+
+NB: 'query' can be used as synonym for 'list'.
 ";
 
 GetOptions (
@@ -62,7 +64,7 @@ GetOptions (
 
 my $command = shift or die $usage;
 
-if ($command eq "list") {
+if ($command eq "list" or $command eq "query") {
 	die $usage unless (scalar(@ips) != 1);
 	my $aref = $y->get_command_list();
 	$y->print_table_hashes($aref, undef, qw(command_id command_template));
