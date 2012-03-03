@@ -1412,5 +1412,5 @@ create view view_workflow as
    FROM view_hosts
    LEFT JOIN view_host_info hi1 ON view_hosts.host_id = hi1.host_id AND hi1."key"::text = 'yaptestfe_finished'::text
    LEFT JOIN view_host_info hi2 ON view_hosts.host_id = hi2.host_id AND hi2."key"::text = 'yaptestfe_owned'::text;
-grant select on view_mac_addresses to yaptest_user;
+grant select on view_workflow to yaptest_user;
 -- end of patch
