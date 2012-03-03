@@ -1008,7 +1008,7 @@ create view view_groups as SELECT test_areas.name AS group_test_area_name, test_
 
 grant select on view_groups to yaptest_user;
 
-create view view_mac_addresses as SELECT test_areas.name AS test_area_name, test_areas.id AS test_area_id, hosts.ip_address, hosts.id AS host_id, mac_addresses.mac_address, value as mac_vendor from hosts_to_mac_addresses JOIN mac_addresses ON hosts_to_mac_addresses.mac_address_id = mac_addresses.id JOIN hosts ON hosts_to_mac_addresses.host_id = hosts.id JOIN test_areas ON test_areas.id = hosts.test_area_id left join view_host_info on hosts.id = view_host_info.host_id and view_host_info.key = 'mac_vendor';
+create or replace view view_mac_addresses as SELECT test_areas.name AS test_area_name, test_areas.id AS test_area_id, hosts.ip_address, hosts.id AS host_id, mac_addresses.mac_address, value as mac_vendor from hosts_to_mac_addresses JOIN mac_addresses ON hosts_to_mac_addresses.mac_address_id = mac_addresses.id JOIN hosts ON hosts_to_mac_addresses.host_id = hosts.id JOIN test_areas ON test_areas.id = hosts.test_area_id left join view_host_info on hosts.id = view_host_info.host_id and view_host_info.key = 'mac_vendor';
 grant select on view_mac_addresses to yaptest_user;
 
 
@@ -1407,7 +1407,7 @@ CASE
 END, v4.value, v5.value, v6.value, v7.value, v8.value, v9.value, v10.value, v11.value, v12.value;
 grant select on view_windows_host_info to yaptest_user;
 
-create view view_mac_addresses as
+create view view_workflow as
  SELECT view_hosts.host_id, view_hosts.test_area_id, view_hosts.test_area_name, view_hosts.ip_address, view_hosts.hostname, view_hosts.name_type, hi1.value AS finished, hi2.value AS owned
    FROM view_hosts
    LEFT JOIN view_host_info hi1 ON view_hosts.host_id = hi1.host_id AND hi1."key"::text = 'yaptestfe_finished'::text
