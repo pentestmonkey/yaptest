@@ -964,7 +964,7 @@ grant select,update,delete,insert on ports to yaptest_user;
 grant select,update,delete,insert on ports_to_app_protocols to yaptest_user;
 grant select,update,delete,insert on transport_protocols to yaptest_user;
 
-create or replace view view_port_summary as select count(1), port, transport_protocol from view_ports group by port, transport_protocol order by count desc, port asc, transport_protocol asc;
+create or replace view view_port_summary as SELECT count(1) AS count, view_ports.port, view_ports.transport_protocol, view_ports.test_area_id, view_ports.test_area_name FROM view_ports GROUP BY view_ports.port, view_ports.transport_protocol, view_ports.test_area_id, view_ports.test_area_name ORDER BY count(1) DESC, view_ports.port, view_ports.transport_protocol;
 
 create view view_port_summary_by_test_area as select count(1), test_area_id, test_area_name, port, transport_protocol from view_ports group by test_area_id, test_area_name, port, transport_protocol order by test_area_id, port desc, transport_protocol desc;
 
