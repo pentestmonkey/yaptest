@@ -137,8 +137,6 @@ my $uri_obj = URI->new($url_dirty);
 my $ip = $uri_obj->host;
 my $url = $uri_obj->canonical;
 
-$ua->proxy(['http'], 'http://192.168.190.1:8080/'); # TODO
-# $ua->credentials( $url, "/splunk", "admin", "changeme" );
 push @{ $ua->requests_redirectable }, 'POST';
 $ua->cookie_jar( HTTP::Cookies->new());
 $ua->cookie_jar()->set_cookie(1, "cval", "1", "/", $ip);
