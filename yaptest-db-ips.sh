@@ -15,6 +15,7 @@ fi
 tcp_port_based_tests () {
 	yaptest-rpcinfo.pl
 	rpcinfo_based_tests
+	yaptest-web-check.pl
 	yaptest-splunk-check.pl
 	yaptest-nxscan.pl
 	yaptest-ms08-067-check.pl

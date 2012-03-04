@@ -13,3 +13,9 @@ Parallel::ForkManager
 Proc::Simple
 Template
 XML::Simple
+MIME::Base64
+Crypt::SSLeay
+LWP::UserAgent
+URI
+HTTP::Request
+HTTP::Cookies
