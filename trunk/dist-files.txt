@@ -153,3 +153,4 @@ splunk-check.pl
 web-check.pl
 yaptest-parse-splunk-check.pl
 yaptest-parse-web-check.pl
+find-live-hosts.pl
