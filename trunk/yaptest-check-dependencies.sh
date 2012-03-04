@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Check that required PERL modules are installed
 echo

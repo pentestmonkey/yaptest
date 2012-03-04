@@ -147,3 +147,9 @@ yaptest-nfs-wrapper.pl
 yaptest-nfs.pl
 yaptest-parse-nfs.pl
 yaptest-parse-showmount.pl
+yaptest-splunk-check.pl
+yaptest-web-check.pl
+splunk-check.pl
+web-check.pl
+yaptest-parse-splunk-check.pl
+yaptest-parse-web-check.pl

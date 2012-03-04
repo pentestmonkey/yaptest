@@ -1351,8 +1351,6 @@ create view view_nmap_info as SELECT p1.value, p1.port_info_id, p1.port_info_key
 
 grant select on view_nmap_info to yaptest_user;
 
--- this patch is just to support some upcoming changes to yaptestfe
--- you can paste it if you want to retrofit an existing database
 drop view view_hosts_ytfe;
 drop view view_windows_host_info;
 drop view view_mac_addresses;
@@ -1373,7 +1371,6 @@ from view_hosts
 left join view_host_info as hi1 on view_hosts.host_id = hi1.host_id and hi1.key = 'yaptestfe_finished'
 left join view_host_info as hi2 on view_hosts.host_id = hi2.host_id and hi2.key = 'yaptestfe_owned';
 grant select on view_hosts_ytfe to yaptest_user;
-
 
 create view view_windows_host_info as
  SELECT DISTINCT hosts.id AS host_id, test_areas.id AS test_area_id, test_areas.name AS test_area_name, hosts.ip_address, hostnames.name AS hostname, v1.value AS os, v2.value AS dom_name,
@@ -1406,11 +1403,3 @@ CASE
     ELSE 'Y'::text
 END, v4.value, v5.value, v6.value, v7.value, v8.value, v9.value, v10.value, v11.value, v12.value;
 grant select on view_windows_host_info to yaptest_user;
-
-create view view_workflow as
- SELECT view_hosts.host_id, view_hosts.test_area_id, view_hosts.test_area_name, view_hosts.ip_address, view_hosts.hostname, view_hosts.name_type, hi1.value AS finished, hi2.value AS owned
-   FROM view_hosts
-   LEFT JOIN view_host_info hi1 ON view_hosts.host_id = hi1.host_id AND hi1."key"::text = 'yaptestfe_finished'::text
-   LEFT JOIN view_host_info hi2 ON view_hosts.host_id = hi2.host_id AND hi2."key"::text = 'yaptestfe_owned'::text;
-grant select on view_workflow to yaptest_user;
--- end of patch
