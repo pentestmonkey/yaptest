@@ -2284,6 +2284,17 @@ sub get_id_of_mac {
 	return $id;
 }
 
+sub get_ip_from_mac {
+	my $self = shift;
+	my $mac = shift;
+
+	my $sth = $self->get_dbh->prepare("SELECT ip_address FROM view_mac_addresses WHERE mac_address = ?");
+	$sth->execute($mac);
+	my ($ip) = $sth->fetchrow_array;
+
+	return $ip;
+}
+
 # $self->insert_ip("1.2.3.4");
 sub insert_ip {
 	my $self = shift;
@@ -3123,6 +3134,7 @@ sub run_test {
 	my %opt_markups = (
 		'::IP::'                 => { output_file_sort_key => 10, db_field_name => 'ip_address'},
 		'::IPFILE::'             => { output_file_sort_key => 20, db_field_name => 'ip_address'},
+		'::MACFILE::'            => { output_file_sort_key => 25, db_field_name => 'mac_address'},
 		'::PORT::'               => { output_file_sort_key => 30, db_field_name => 'port'},
 		'::PORTFILE::'           => { output_file_sort_key => 40, db_field_name => 'port'},
 		'::PORTLIST::'           => { output_file_sort_key => 50, db_field_name => 'port'},
@@ -3185,6 +3197,8 @@ sub run_test {
 	}
 	my $need_port = 0;
 	my $need_ip = 0;
+	my $need_mac = 0;
+	my $need_mac_file = 0;
 	my $need_port_info = 0;
 	my $need_host_info = 0;
 	my $need_hostname = 0;
@@ -3196,6 +3210,7 @@ sub run_test {
 		print "Processing $opt_markup, command = $opts{command}\n" if $global_debug;
 		if ($opts{command} =~ /$opt_markup/ or (defined($opts{output_file}) and $opts{output_file} =~ /$opt_markup/)) { #TODO this won't match ::HOSTINFO-blah::, but it doesn't matter.  why do it?
 			$need_ip_file = 1 if $opts{command} =~ /::IPFILE::/;
+			$need_mac_file = 1 if $opts{command} =~ /::MACFILE::/;
 			if ($opts{command} =~ /::PORTLIST-SPACE::/) {
 				$need_port_list = 1;
 				$need_port = 1;
@@ -3232,6 +3247,9 @@ sub run_test {
 			if ($opts{command} =~ /::IPFILE::/) {
 				$need_ip = 1;
 			}
+			if ($opts{command} =~ /::MACFILE::/) {
+				$need_mac = 1;
+			}
 			if ($opts{command} =~ /::IP::/) {
 				$need_ip = 1;
 			}
@@ -3255,7 +3273,9 @@ sub run_test {
 	print "need_port: $need_port\n" if $global_debug;
 	print "need_username: $need_username\n" if $global_debug;
 	print "need_password: $need_password\n" if $global_debug;
-	if ($need_ip and !$need_port and !$need_username and !$need_password) {
+	if ($need_mac_file) {
+		$table = "view_mac_addresses";
+	} elsif ($need_ip and !$need_port and !$need_username and !$need_password) {
 		$table = "view_hosts";
 	} elsif ($need_ip and $need_port and !$need_username and !$need_password) {
 		$table = "view_ports";
@@ -3496,6 +3516,8 @@ sub run_test {
 			@command = ($opts{command});
 		} elsif ($table eq "view_os_usernames") {
 			croak "ERROR: Don't know how to resume a scan that uses view_os_usernames.  Still on the TODO list.  Sorry\n";
+		} elsif ($table eq "view_mac_addresses") {
+			# Resume not supported
 		} elsif ($table eq "view_passwords") {
 			croak "ERROR: Don't know how to resume a scan that uses view_password.  Still on the TODO list.  Sorry\n";
 		} else {
@@ -3585,7 +3607,7 @@ sub run_test {
 			$output_file =~ s/::IP::/$ip/g;
 			$parser{ip} = $ip;
 
-			if ($output_file =~ /::(IPFILE|PORT|PORTFILE|PORTLIST|TRANSPORT_PROTOCOL)::/) {
+			if ($output_file =~ /::(IPFILE|MACFILE|PORT|PORTFILE|PORTLIST|TRANSPORT_PROTOCOL)::/) {
 				croak "ERROR: Markup specified in output file name.  This isn't supported when using a file of IPs (IPFILE).\n";
 			}
 
@@ -3630,7 +3652,7 @@ sub run_test {
 			$command =~ s/::IPFILE::/$tmp_filename/;
 			$parser{ip} = undef;
 	
-			if ($output_file =~ /::(IP|IPFILE|PORT|PORTFILE|PORTLIST|TRANSPORT_PROTOCOL)::/) {
+			if ($output_file =~ /::(IP|MACFILE|IPFILE|PORT|PORTFILE|PORTLIST|TRANSPORT_PROTOCOL)::/) {
 				croak "ERROR: Markup specified in output file name.  This isn't supported when using a file of IPs (IPFILE).\n";
 			}
 	
@@ -3639,6 +3661,42 @@ sub run_test {
 			unlink $tmp_filename;
 		}
 
+	# Start tests that run on a file of mac addresses
+	# e.g. gateway-finder.py -f macs.txt
+	} elsif ($need_mac_file) {
+		my $tmp_fh;
+		my $tmp_filename;
+
+		# Create a file containing IP addresses
+		($tmp_fh, $tmp_filename) = tempfile('yaptest-macs-XXXXX');
+		my $count = 0;
+		row: foreach my $row_aref (@$results_aref) {
+			field: foreach my $index (0..(scalar(@selected_fields) - 1)) {
+				if ($selected_fields[$index] eq 'mac_address') {
+					my $mac = $row_aref->[$index];
+					print $tmp_fh "$mac\n";
+					$count++;
+					next row;
+				}
+			}
+		}
+		close($tmp_fh);
+		
+		# only run a command if we actually wrote some macs to the file
+		if ($count) {
+			my $output_file = $opts{output_file};
+			my $command = $opts{command};
+			$command =~ s/::MACFILE::/$tmp_filename/;
+			$parser{mac} = undef;
+	
+			if ($output_file =~ /::(IP|MACFILE|IPFILE|PORT|PORTFILE|PORTLIST|TRANSPORT_PROTOCOL)::/) {
+				croak "ERROR: Markup specified in output file name.  This isn't supported when using a file of IPs (IPFILE).\n";
+			}
+	
+			$self->run_command_save_output($command, $output_file, timeout => $timeout, max_lines => $max_lines, inactivity_timeout => $inactivity_timeout, %parser);
+			$self->set_complete("mac_list", $opts{command}, $tmp_filename);
+			unlink $tmp_filename;
+		}
 	# Start tests that run on a single port
 	# e.g. nikto -h ip1 -p port1
 	#      nikto -h ip1 -p port2
@@ -3912,6 +3970,8 @@ sub set_complete {
 		my $command = shift;
 		my $opt_href = shift;
 		# TODO
+	} elsif ($type eq "mac_list") {
+		# Resume not supported
 	} elsif ($type eq "ip_list") {
 		my $command = shift;
 		my $ip_file = shift;
