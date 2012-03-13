@@ -1008,6 +1008,7 @@ create view view_groups as SELECT test_areas.name AS group_test_area_name, test_
 
 grant select on view_groups to yaptest_user;
 
+drop view view_mac_addresses;
 create or replace view view_mac_addresses as SELECT test_areas.name AS test_area_name, test_areas.id AS test_area_id, hosts.ip_address, hosts.id AS host_id, mac_addresses.mac_address, value as mac_vendor from hosts_to_mac_addresses JOIN mac_addresses ON hosts_to_mac_addresses.mac_address_id = mac_addresses.id JOIN hosts ON hosts_to_mac_addresses.host_id = hosts.id JOIN test_areas ON test_areas.id = hosts.test_area_id left join view_host_info on hosts.id = view_host_info.host_id and view_host_info.key = 'mac_vendor';
 grant select on view_mac_addresses to yaptest_user;
 
@@ -1353,7 +1354,6 @@ grant select on view_nmap_info to yaptest_user;
 
 drop view view_hosts_ytfe;
 drop view view_windows_host_info;
-drop view view_mac_addresses;
 drop view view_host_info;
 
 create or replace view view_host_info as 

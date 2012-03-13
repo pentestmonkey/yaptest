@@ -82,6 +82,7 @@ tcp_port_based_tests         # Test the TCP services found so far.
 yaptest-ike-scan.pl
 yaptest-yapscan-icmp.pl 
 yaptest-ping-r.pl
+yaptest-gateway-finder.pl
 yaptest-onesixtyone.pl
 yaptest-nmap-ip-protocols.pl &
 

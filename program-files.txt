@@ -121,3 +121,5 @@ web-check.pl
 yaptest-parse-splunk-check.pl
 yaptest-parse-web-check.pl
 find-live-hosts.pl
+yaptest-gateway-finder.pl
+yaptest-parse-gateway-finder.pl
