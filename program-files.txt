@@ -123,3 +123,6 @@ yaptest-parse-web-check.pl
 find-live-hosts.pl
 yaptest-gateway-finder.pl
 yaptest-parse-gateway-finder.pl
+yaptest-parse-mop-check.pl
+yaptest-mop-check.pl
+mop-check.py

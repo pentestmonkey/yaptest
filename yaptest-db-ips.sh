@@ -83,6 +83,7 @@ yaptest-ike-scan.pl
 yaptest-yapscan-icmp.pl 
 yaptest-ping-r.pl
 yaptest-gateway-finder.pl
+yaptest-mop-check.pl
 yaptest-onesixtyone.pl
 yaptest-nmap-ip-protocols.pl &
 
