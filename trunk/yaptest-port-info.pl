@@ -36,7 +36,7 @@ GetOptions (
 my $command = shift or die $usage;
 
 if ($command eq "query" or $command eq "export") {
-	my $aref = $y->get_port_info(test_area => $test_area, ip => $ip, port => $port, transport_protocol => $transport_protocol, port_info_key => $key, value => $value);
+	my $aref = $y->get_port_info(test_area => $test_area, ip_address => $ip, port => $port, transport_protocol => $transport_protocol, port_info_key => $key, value => $value);
 	if ($command eq "query") {
 		$y->print_table_hashes($aref, undef, qw(test_area_name ip_address port transport_protocol port_info_key value));
 	}
@@ -47,7 +47,7 @@ if ($command eq "query" or $command eq "export") {
 		print "Exported query results to $filename\n";
 	}
 } elsif ($command eq "add") {
-	$y->insert_port_info(test_area => $test_area, ip => $ip, port => $port, transport_protocol => $transport_protocol, port_info_key => $key, port_info_value => $value);
+	$y->insert_port_info(test_area => $test_area, ip_address => $ip, port => $port, transport_protocol => $transport_protocol, port_info_key => $key, port_info_value => $value);
 	print "Successfully associated $key => $value with $ip\n";
 } else {
 	die $usage;
