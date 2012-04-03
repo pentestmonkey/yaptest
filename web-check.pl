@@ -40,13 +40,19 @@ while ($keep_going and $redirects < 5) {
 	$res = $ua->request($req);
 	if (($res->code eq "302" or $res->code eq "301") and $res->header("Location")) {
 		my $loc = $res->header("Location");
-		$loc =~ s!../!/!g; # firefox, wget do this
+		$loc =~ s!\.\./!/!g; # firefox, wget do this
+		print "[D] ip: $ip\n";
 		if ($loc =~ /^\//) {
 			$new_url = "$scheme://$ip:$port/$loc";
 			print "[+] Redirecting to $new_url\n";
 			$redirects++;
+		} elsif ($loc =~ m!^$scheme://$ip(:$port)?/!i) {
+			$new_url = $loc;
+			print "[+] Redirecting to $new_url\n";
+			$redirects++;
 		} else {
 			print "[E] Not redirecting to $loc\n";
+			print $res->as_string;
 		}
 		
 	} else {
@@ -59,6 +65,7 @@ my $ssl_subject = $res->header("Client-SSL-Cert-Subject");
 my $ssl_issuer = $res->header("Client-SSL-Cert-Issuer");
 my $http_server_header = $res->header("Server");
 my $http_x_powered_by = $res->header("X-Powered_by");
+my ($hp_system_management_version) = $res->content =~ /HP System Management Homepage v([\d\.]+)/;
 
 output_info($url, "html_title", $title);
 output_info($url, "ssl_subject", $ssl_subject);
@@ -68,6 +75,9 @@ output_info($url, "http_x_powered_by", $http_x_powered_by);
 output_info($url, "homepage_url", $new_url);
 output_info($url, "homepage_content_b64", $res->content);
 output_info($url, "homepage_headers_b64", $res->headers->as_string);
+if (defined($hp_system_management_version)) {
+       output_info($url, "hp_system_management_version", $hp_system_management_version);
+}
 
 sub output_info {
 	my ($url, $key, $value) = @_;
