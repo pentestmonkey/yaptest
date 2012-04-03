@@ -22,7 +22,7 @@ $y->run_test(
 	output_file => "splunk-check-http-::IP::-::PORT::.out",
 	parallel_processes => $max_processes,
 	filter => { port => 8000 },
-	inactivity_timeout => 30,
+	inactivity_timeout => 60,
 	parser => 'yaptest-parse-splunk-check.pl'
 );
 
@@ -31,7 +31,7 @@ $y->run_test(
 	output_file => "splunk-check-https-::IP::-::PORT::.out",
 	parallel_processes => $max_processes,
 	filter => { port => 8000 },
-	inactivity_timeout => 30,
+	inactivity_timeout => 60,
 	parser => 'yaptest-parse-splunk-check.pl'
 );
 
