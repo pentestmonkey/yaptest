@@ -303,6 +303,13 @@ if ($command eq "parse") {
 		$y->insert_issue(name => "rdp_mitm", ip_address => $href->{ip_address}, port => $href->{port}, transport_protocol => $href->{transport_protocol});
 	}
 
+	# cisco smart install
+	$arefs = $y->get_ports(test_area => $y->get_test_area, port => 4786, transport_protocol => 'TCP');
+	foreach my $href (@$arefs) {
+		print "DEBUG: name => 'cisco_smart_install', ip_address => $href->{ip_address}, port => $href->{port}, transport_protocol => $href->{transport_protocol}\n";
+		$y->insert_issue(name => "cisco_smart_install", ip_address => $href->{ip_address}, port => $href->{port}, transport_protocol => $href->{transport_protocol});
+	}
+
 	# snmpv1
 	$arefs = $y->get_ports(test_area => $y->get_test_area, port => 161, transport_protocol => 'UDP');
 	foreach my $href (@$arefs) {
