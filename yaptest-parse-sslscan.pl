@@ -33,31 +33,54 @@ while (my $filename = shift) {
 		next;
 	}
 
+	my $fs_supported = 0;
+	my $only_fs_supported = undef;
 	while (<FILE>) {
 		# print;
 		chomp;
 		my $line = $_;
 
 		# Accepted  SSLv2  128 bits  RC2-CBC-MD5
-		if ($line =~ /^\s*Accepted\s+SSLv2\s+\d+/) {
+		if ($line =~ /^\s*Accepted.*SSLv2\s+\d+/) {
 			print "PARSED: SSLv2 supported: $line\n";
 
 			$y->insert_issue(name => "sslv2_supported", ip_address => $ip, port => $port, transport_protocol => 'TCP');
 		}
 		
 		# Accepted  TLSv1  40 bits   EXP-DES-CBC-SHA
-		if ($line =~ /^\s*Accepted\s+(SSLv2|TLSv1|SSLv3)\s+(40|56)\s+/) {
+		if ($line =~ /^\s*Accepted.*(SSLv2|TLSv1|SSLv3)\s+(40|56)\s+/) {
 			print "PARSED: Weak Cipher: $line\n";
 
 			$y->insert_issue(name => "ssl_weak_ciphers", ip_address => $ip, port => $port, transport_protocol => 'TCP');
 		}
 
 		# Accepted  TLSv1  256 bits  ADH-AES256-SHA
-		if ($line =~ /^\s*Accepted\s+(SSLv2|TLSv1|SSLv3)\s+(\d+)\s+bits\s+ADH-/) {
+		if ($line =~ /^\s*Accepted.*(SSLv2|TLSv1|SSLv3)\s+(\d+)\s+bits\s+(ADH|AECDH)-/) {
 			print "PARSED: Weak Cipher: $line\n";
 
 			$y->insert_issue(name => "ssl_anon_dh", ip_address => $ip, port => $port, transport_protocol => 'TCP');
 		}
+
+		
+		if ($line =~ /^\s*Accepted.*(SSLv2|TLSv1|SSLv3)\s+(\d+)\s+bits\s+/) {
+			if (not defined($only_fs_supported)) {
+				$only_fs_supported = 1;
+			}
+			# Accepted  TLSv1  256 bits  EDH-AES256-SHA
+			if ($line =~ /^\s*Accepted.*(SSLv2|TLSv1|SSLv3)\s+(\d+)\s+bits\s+(ECDHE|DHE|EDH)-/) {
+				print "PARSED: Forward-secrecy cipher suite: $line\n";
+				$fs_supported = 1;
+			} else {
+				$only_fs_supported = 0;
+			}
+
+		}
+	}
+	if (not $only_fs_supported) {
+		$y->insert_issue(name => "ssl_fs_not_mandated", ip_address => $ip, port => $port, transport_protocol => 'TCP');
+	}
+	if (not $fs_supported) {
+		$y->insert_issue(name => "ssl_fs_not_supported", ip_address => $ip, port => $port, transport_protocol => 'TCP');
 	}
 }
 $y->commit;
