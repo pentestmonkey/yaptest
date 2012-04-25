@@ -220,10 +220,52 @@ sub create_new_db {
 	print "\n";
 	my $current_dir = `pwd`; chomp $current_dir;
 	print "Current Directory: $current_dir\n";
+	my $dbname = "";
+
 	print "Enter name for new yaptest database (or CTRL-C to quit): ";
-	my $dbname = <>;
+	$dbname = <>;
 	print "-------------------------------------------------------------------------\n";
 	chomp $dbname;
+
+	my $dbnameCorrect = 0;
+	while(!$dbnameCorrect)
+	{
+	
+		#check the db is in a for me expected
+		my $correct = 1;
+		#cant start with a number
+		if($dbname =~ m/^\d+/)
+		{
+			$correct = 0;
+		}
+
+		#cant have a -
+		if($dbname =~ m/-/)
+		{
+			$correct = 0;
+		}
+		
+		if($correct)
+		{
+			#make it all lowercase, postgress dont like it other wise
+			$dbname = lc($dbname);
+			$dbnameCorrect = 1;
+		}
+		else
+		{
+			#tell them it is worng and allow them to entrer it again
+	
+			print "Enter name for new yaptest database (or CTRL-C to quit) (it cant start with a number or contain a -): ";
+			$dbname = <>;
+			print "-------------------------------------------------------------------------\n";
+			chomp $dbname;
+
+		}
+
+	}
+
+	#create the stuff we need
+
 	print "Database name: $dbname\n";
 
 	print "Creating directory '$dbname'...";
