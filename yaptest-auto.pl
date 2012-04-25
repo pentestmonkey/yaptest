@@ -135,6 +135,8 @@ else
 }
 
 system('yaptest-nbtscan.pl');           # Get windows hostname info
+system("yaptest-mop-check.pl");
+system("yaptest-gateway-finder.pl");
 
 #run the tcp based tests on the ports we have found so far
 tcp_port_based_tests();
@@ -204,6 +206,8 @@ nmap_service_based_tests();
 # yaptest will only test the new ports listsed
 tcp_port_based_tests();
 
+#run rpc-based tests
+rpcinfo_based_tests();
 
 #wait for the nessus scans to finish
 if($runNessus)
@@ -215,13 +219,21 @@ if($runNessus)
 #
 # Wait for all the back gound process to finish
 #
+
+#wait for ikescan
 $procIke->wait();
+#wait for icmp tests
 $procIcmp->wait();
+
+# wait for ping -r
 if($runPing_r)
 {
         $procPing_r->wait();
 }
+#wait for 161 results
 $proc161->wait();
+
+#wait for nmap-protocol scan
 if($runNmap_proto)
 {
         $procNmap_proto->wait();
@@ -276,6 +288,8 @@ sub tcp_port_based_tests
         push(@torun, "yaptest-nfs.pl");
         push(@torun, "yaptest-rup.pl");
         push(@torun, "yaptest-rusers.pl");
+	push(@torun, "yaptest-web-check.pl");
+	push(@torun, "yaptest-splunk-check.pl");
 
 	my $pm = new Parallel::ForkManager($max_processes); 
 
@@ -286,7 +300,11 @@ sub tcp_port_based_tests
 		$pm->finish;
 	}
 	$pm->wait_all_children;
+	#
+	# Parse all the results we can
+	#
 	system("yaptest-parse-nmap-xml.pl nmap-tcp*.xml");
+	
 }
 
 #
@@ -442,8 +460,6 @@ sub nmap_service_based_tests {
                 $pm->finish;
         }
         $pm->wait_all_children;
+	
 }
-
-
-#yaptest-openvas.pl
 
