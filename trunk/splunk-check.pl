@@ -124,6 +124,9 @@ foreach my $build (keys %vulns) {
 	}
 }
 
+#set an env which will ignore cert errors
+$ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
+
 my $ua = LWP::UserAgent->new;
 my $usage = "$0 url
 
@@ -156,7 +159,7 @@ if ($res->is_success and $res->content =~ /Splunk\s+([\d\.]+)\s+build\s+(\d+)/s)
 	$type = "server";
 	print "[V] Splunk management server detected on $url\n";
 	print "[V] Splunk Version $version Build $build on $url\n";
-} elsif ($res->is_success and $res->content =~ /Atom.*generator version="(\d+)"/s) {
+} elsif ($res->is_success and $res->content =~ /Atom.*generator version="(\d+)"/sg) {
 	$build = $1;
 	$type = "forwarder";
 	print "[V] Splunk forwarder detected on $url\n";
