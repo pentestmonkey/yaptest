@@ -32,26 +32,47 @@ my $is_child = 0;
 
 BEGIN {
 	# Print banner to make output less messy
-	my $svn = '$Revision$';
-	$svn =~ s/[^0-9]//g;
-	if ($svn) {
-		$svn = "-svn-" . $svn;
-	}
-	our $VERSION = "0.2.1$svn";
-	my $message1 = "Starting " . basename($0) ;
-	my $message2 = "*  [ Using yaptest v$yaptest::VERSION - http://pentestmonkey.net/projects/yaptest ]  *";
-	my $space_count = int((length($message2) - length($message1) - 2) / 2);
-	my $extra_space = length($message2) - length($message1) - 2 - 2 * $space_count;
-	$message1 = "*" . (" " x $space_count) . "$message1" . (" " x ($space_count + $extra_space)) . "*";
-	warn "\n";
-	warn "*" x length($message2) . "\n";
-	warn "$message1\n";
-	warn "$message2\n";
-	warn "*" x length($message2) . "\n";
-	warn "\n";
+	#my $svn = '$Revision$';
+	#$svn =~ s/[^0-9]//g;
+	#if ($svn) {
+	#	$svn = "-svn-" . $svn;
+	#}
+	#our $VERSION = "0.2.1$svn";
+	#my $message1 = "Starting " . basename($0) ;
+	#my $message2 = "*  [ Using yaptest v$yaptest::VERSION - http://pentestmonkey.net/projects/yaptest ]  *";
+	#my $space_count = int((length($message2) - length($message1) - 2) / 2);
+	#my $extra_space = length($message2) - length($message1) - 2 - 2 * $space_count;
+	#$message1 = "*" . (" " x $space_count) . "$message1" . (" " x ($space_count + $extra_space)) . "*";
+	#warn "\n";
+	#warn "*" x length($message2) . "\n";
+	#warn "$message1\n";
+	#warn "$message2\n";
+	#warn "*" x length($message2) . "\n";
+	#warn "\n";
 }
 
 sub new {
+
+	# Print banner to make output less messy
+        my $svn = '$Revision$';
+        $svn =~ s/[^0-9]//g;
+        if ($svn) {
+                $svn = "-svn-" . $svn;
+        }
+        our $VERSION = "0.2.1$svn";
+        my $message1 = "Starting " . basename($0) ;
+        my $message2 = "*  [ Using yaptest v$yaptest::VERSION - http://pentestmonkey.net/projects/yaptest ]  *";
+        my $space_count = int((length($message2) - length($message1) - 2) / 2);
+        my $extra_space = length($message2) - length($message1) - 2 - 2 * $space_count;
+        $message1 = "*" . (" " x $space_count) . "$message1" . (" " x ($space_count + $extra_space)) . "*";
+        warn "\n";
+        warn "*" x length($message2) . "\n";
+        warn "$message1\n";
+        warn "$message2\n";
+        warn "*" x length($message2) . "\n";
+        warn "\n";
+
+
 	my $class = shift;
 	my $newdbname = shift;
 	my $new_config_file = shift;
