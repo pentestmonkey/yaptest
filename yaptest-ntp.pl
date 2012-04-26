@@ -2,6 +2,10 @@
 use strict;
 use warnings;
 use POSIX;
+
+do "yaptest-script-check.pl";
+&check_programs("ntpq", "ntptrace");
+
 use yaptest;
 use File::Basename;
 
