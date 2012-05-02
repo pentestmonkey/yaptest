@@ -244,6 +244,13 @@ if($runNmap_proto)
 #
 system("yaptest-issues.pl insecgen");
 
+# Find all the expolits that might be in msf
+# We run this at the end so it's the last thing we see ;)
+if($runNessus)
+{
+	system("yaptest-metasploit-exploit-suggest.pl");
+}
+
 # 
 # Perfom clean up
 #
@@ -440,6 +447,7 @@ sub nmap_service_based_tests {
 
 	push(@torun, "yaptest-ldapsearch.pl");
 	push(@torun, "yaptest-telnet-fuser.pl");
+	push(@torun, "yaptest-rmiinfo.pl");
 	if($runNikto)
 	{
 		    push(@torun, "yaptest-nikto.pl");
