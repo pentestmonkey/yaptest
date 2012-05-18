@@ -16,3 +16,13 @@ apt-get install ldap-utils
 apt-get install libio-pty-perl
 apt-get install libproc-simple-perl
 apt-get install libexpect-perl
+apt-get install libnet-ldap-perl
+apt-get install libnet-dns-perl
+apt-get install x11-utils
+apt-get install x11-apps
+apt-get install libpcap-dev
+apt-get install g++
+apt-get install snmp
+apt-get install tftp
+apt-get install rusers
+apt-get install ntp

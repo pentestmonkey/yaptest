@@ -70,4 +70,38 @@ sub web_check {
                 );
 		$connection->commit if $commit;
 	}
+	if ($line =~ /^\[I\]\s+Vulnerable\s+(\S+)\s+(http[s]:\/\/([\d\.]+):(\d+)\/\S*)\s+(\S+)\s+(\S+)/) {
+		my $issue = $1;
+		my $url   = $2;
+		my $ip    = $3;
+		my $port  = $4;
+		my $req   = $5;
+		my $res   = $6;
+
+		print "PARSED: ISSUE=$issue, URL=$url, IP=$ip, PORT=$port, REQUEST=$req, RESPONSE=$res\n";
+		$connection->insert_issue(name => $issue, ip_address => $ip, port => $port, transport_protocol => "TCP");
+		$connection->insert_port(ip => $ip, transport_protocol => "tcp", port => $port);
+                $connection->insert_port_info(
+                          ip                 => $ip,
+                          port               => $port,
+                          transport_protocol => "TCP",
+                          port_info_key      => $issue . "_url",
+                          port_info_value    => $url
+                );
+                $connection->insert_port_info(
+                          ip                 => $ip,
+                          port               => $port,
+                          transport_protocol => "TCP",
+                          port_info_key      => $issue . "_request",
+                          port_info_value    => decode_base64($req)
+                );
+                $connection->insert_port_info(
+                          ip                 => $ip,
+                          port               => $port,
+                          transport_protocol => "TCP",
+                          port_info_key      => $issue . "_response",
+                          port_info_value    => decode_base64($res)
+                );
+		$connection->commit if $commit;
+	}
 }
