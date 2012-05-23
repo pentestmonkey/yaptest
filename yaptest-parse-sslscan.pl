@@ -76,11 +76,10 @@ while (my $filename = shift) {
 
 		}
 	}
-	if (not $only_fs_supported) {
-		$y->insert_issue(name => "ssl_fs_not_mandated", ip_address => $ip, port => $port, transport_protocol => 'TCP');
-	}
 	if (not $fs_supported) {
 		$y->insert_issue(name => "ssl_fs_not_supported", ip_address => $ip, port => $port, transport_protocol => 'TCP');
+	} elsif (not $only_fs_supported) {
+		$y->insert_issue(name => "ssl_fs_not_mandated", ip_address => $ip, port => $port, transport_protocol => 'TCP');
 	}
 }
 $y->commit;
