@@ -32,6 +32,7 @@ tcp_port_based_tests () {
 	yaptest-smtp-user-enum.pl
 	yaptest-amap-tcp.pl
 	yaptest-sslscan.pl
+	yaptest-ssl-check.pl
 	yaptest-vessl.pl
 	yaptest-httprint.pl
 	yaptest-smtpscan.pl

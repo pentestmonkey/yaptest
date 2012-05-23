@@ -159,3 +159,6 @@ yaptest-parse-gateway-finder.pl
 yaptest-parse-mop-check.pl
 yaptest-mop-check.pl
 mop-check.py
+yaptest-ssl-check.pl
+ssl-check.pl
+yaptest-parse-ssl-check.pl
