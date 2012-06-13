@@ -51,7 +51,6 @@ yaptest-showmount.pl
 yaptest-snmpwalk.pl
 yaptest-parse-snmpwalk.pl
 yaptest-icmp.pl
-yaptest-sshprobe.pl
 yaptest-telnet-fuser.pl
 yaptest-tftp.pl
 yaptest-tnscmd.pl

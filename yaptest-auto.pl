@@ -288,7 +288,6 @@ sub tcp_port_based_tests
         push(@torun, "yaptest-x-open.pl");
         push(@torun, "yaptest-enum4linux.pl");
         push(@torun, "yaptest-ssh-keyscan.pl");
-        push(@torun, "yaptest-sshprobe.pl");
 	push(@torun, "yaptest-rexd.pl");
         push(@torun, "yaptest-kcmsd-fileread.pl");
         push(@torun, "yaptest-showmount.pl");

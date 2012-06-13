@@ -38,7 +38,6 @@ yaptest-tnscmd.pl
 yaptest-veritas-file-download.pl
 yaptest-enum4linux.pl
 yaptest-parse-enum4linux.pl
-yaptest-sshprobe.pl
 yaptest-snmpwalk.pl
 yaptest-parse-snmpwalk.pl
 yaptest-parse-hydra.pl
