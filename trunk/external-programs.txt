@@ -33,7 +33,6 @@ rusers
 showmount
 smtpscan
 snmpwalk
-sshprobe
 sslscan
 telnet
 tftp
