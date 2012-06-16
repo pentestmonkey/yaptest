@@ -83,7 +83,7 @@ signal.signal(signal.SIGTERM, handler)
 signal.signal(signal.SIGINT, handler)
 
 def processreply(p):
-	if p[Ether].dst == "22:44:66:88:aa:cc":
+	if p[Ether].dst == options.srcmac:
 		print "[+] Recieved Reply From %s" % p[Ether].src
 		if options.verbose:
 			p.show()
@@ -101,6 +101,8 @@ if pid:
 	# parent will send packets
 	sleep(2) # give child time to start sniffer
 	vprint("Parent processing sending packets...")
+	conf.iface = options.interface 
+	conf.inface = options.interface
 	for packet in packets:
 		sendp(packet['packet'], verbose=0)
 	vprint("Parent finished sending packets")
