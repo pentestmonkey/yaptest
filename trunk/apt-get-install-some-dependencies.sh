@@ -1,10 +1,10 @@
 #!/bin/sh
 apt-get install postgresql
 apt-get install libcrypt-ssleay-perl
-apt-get install nmap john
+apt-get install john
+apt-get install nmap
 apt-get install ike-scan
 apt-get install arp-scan
-apt-get install postgresql
 apt-get install sslscan
 apt-get install libpcap-dev
 apt-get install libssl-dev
