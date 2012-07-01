@@ -128,3 +128,4 @@ mop-check.py
 yaptest-ssl-check.pl
 ssl-check.pl
 yaptest-parse-ssl-check.pl
+yaptest-sslyze.pl
