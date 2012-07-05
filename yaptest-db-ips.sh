@@ -33,6 +33,7 @@ tcp_port_based_tests () {
 	yaptest-amap-tcp.pl
 	yaptest-sslscan.pl
 	yaptest-sslyze.py
+	yaptest-ssl-cipher-suite-enum.pl
 	yaptest-ssl-check.pl
 	yaptest-vessl.pl
 	yaptest-httprint.pl
