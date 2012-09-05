@@ -54,3 +54,5 @@ on
 nfs
 ssh
 sslyze.py
+rdp-sec-check.pl
+ssl-cipher-suite-enum.pl
