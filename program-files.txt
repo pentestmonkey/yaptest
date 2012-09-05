@@ -130,3 +130,4 @@ ssl-check.pl
 yaptest-parse-ssl-check.pl
 yaptest-sslyze.pl
 yaptest-ssl-cipher-suite-enum.pl
+yaptest-rdp-sec-check.pl

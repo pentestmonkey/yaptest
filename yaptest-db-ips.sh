@@ -14,6 +14,7 @@ fi
 # Continue with these while we wait for UDP scan to finish
 tcp_port_based_tests () {
 	yaptest-rpcinfo.pl
+	yaptest-rdp-sec-check.pl
 	rpcinfo_based_tests
 	yaptest-web-check.pl
 	yaptest-splunk-check.pl
