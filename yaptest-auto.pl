@@ -278,6 +278,7 @@ sub tcp_port_based_tests
         push(@torun, "yaptest-nmap-tcp.pl openonly");
         push(@torun, "yaptest-tnscmd.pl");
         push(@torun, "yaptest-oscanner.pl");
+        push(@torun, "yaptest-msf-oracle-sid-guess.pl");
         push(@torun, "yaptest-finger-user-enum.pl");
         push(@torun, "yaptest-smtp-user-enum.pl");
         
