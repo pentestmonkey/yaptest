@@ -27,6 +27,7 @@ tcp_port_based_tests () {
 	yaptest-tnscmd.pl
 	yaptest-nfs.pl
 	yaptest-oscanner.pl
+	yaptest-msf-oracle-sid-guess.pl
 	nmap_service_based_tests
 	yaptest-bannergrab.pl
 	yaptest-finger-user-enum.pl
@@ -112,3 +113,4 @@ yaptest-dns.pl
 yaptest-ntp.pl
 yaptest-tftp.pl
 yaptest-issues.pl insecgen
+yaptest-metasploit-exploit-suggest.pl
