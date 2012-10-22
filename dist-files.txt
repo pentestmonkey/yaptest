@@ -164,3 +164,6 @@ yaptest-parse-ssl-check.pl
 yaptest-sslyze.pl
 yaptest-ssl-cipher-suite-enum.pl
 yaptest-rdp-sec-check.pl
+metasploit-exploit-suggest.pl
+yaptest-metasploit-exploit-suggest.pl
+yaptest-msf-oracle-sid-guess.pl
