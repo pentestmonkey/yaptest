@@ -104,6 +104,7 @@ wait
 yaptest-parse-nmap-xml.pl nmap-udp*.xml 
 yaptest-nmap-udp.pl         # will do full udp scan on quick hosts
 yaptest-nessus3.pl
+yaptest-nessus5.pl
 yaptest-issues.pl parse nessus-report-*.html
 yaptest-openvas.pl
 yaptest-amap-udp.pl
