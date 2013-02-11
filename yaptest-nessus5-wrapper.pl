@@ -8,6 +8,9 @@ use File::Temp qw/ tempfile /;
 use Net::Nessus::XMLRPC;
 use Data::Dumper;
 
+# Disable checking of Nessus's SSL cert - may not be what you want.
+$ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
+
 my $port = 8834;
 my $polltime = 15; # seconds
 my $nessus_host;
