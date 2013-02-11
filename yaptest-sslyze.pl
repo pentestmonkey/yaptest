@@ -16,7 +16,7 @@ die $usage if shift;
 my $y = yaptest->new();
 
 $y->run_test(
-	command => "sslyze.py --regular --tlsv1_1 --tlsv1_2 ::IP:::::PORT::",
+	command => "sslyze.py --timeout=30 --regular --tlsv1_1 --tlsv1_2 ::IP:::::PORT::",
 	parallel_processes => 8,
 	filter => { ssl => 1 },
 	inactivity_timeout => 60,
