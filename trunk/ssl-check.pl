@@ -29,6 +29,10 @@ $exp->exp_internal(0);
 
 my $type = "";
 my $ret;		
+
+print "[+] Getting certification information\n";
+system("openssl s_client -connect $target:$port | sed -n '/BEGIN CERTIFICATE/,/END CERTIFICATE/p' | openssl x509 -text");
+
 $ret = $exp->expect($timeout, "Secure Renegotiation IS NOT supported", "Secure Renegotiation IS supported", "connect:errno=", ":error:");
 if (defined($ret) and $ret == 0) {
 	print "[+] Timemout waiting for SSL connection.  Quitting.\n";
@@ -64,20 +68,20 @@ if (defined($ret) and $ret == 1) {
 		exit 1;
 	}
 	if (defined($result) and $result == 1) {
-		print "\n[+] $type Renegotiaion seems to be successful for $target:$port\n";
+		print "\n[+] $type Renegotiation seems to be successful for $target:$port\n";
 		$exp->send("\r\n");
 		my $result2 = $exp->expect($timeout, "HTTP");
 		if (defined($result) and $result == 1) {
-			print "\n[+] $type Renegotiaion is possible for $target:$port\n";
+			print "\n[+] $type Renegotiation is possible for $target:$port\n";
 			exit 1;
 		}
-		print "\n[+] $type Renegotiaion went wrong for $target:$port.  Investigate manually.\n";
+		print "\n[+] $type Renegotiation went wrong for $target:$port.  Investigate manually.\n";
 		exit 1;
 	}
 	if (defined($result) and $result == 2) {
 		print "[+] $type Renegotiaion failed for $target:$port\n";
 		exit 1;
 	}
-	print "\n[+] $type Renegotiaion went wrong for $target:$port.  Investigate manually.\n";
+	print "\n[+] $type Renegotiation went wrong for $target:$port.  Investigate manually.\n";
 }
 $exp->hard_close;
