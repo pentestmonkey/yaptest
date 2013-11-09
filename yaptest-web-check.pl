@@ -22,7 +22,7 @@ $y->run_test(
 	parallel_processes => $max_processes,
 	output_file => "web-check-http-::IP::-::PORT::.out",
 	filter => { port_info => "nmap_service_name like http", ssl => 0 },
-	max_lines => 100,
+	max_lines => 3000,
 	inactivity_timeout => 60,
 	parser => 'yaptest-parse-web-check.pl'
 );
@@ -32,7 +32,7 @@ $y->run_test(
 	parallel_processes => $max_processes,
 	output_file => "web-check-https-::IP::-::PORT::.out",
 	filter => { port_info => "nmap_service_name like http", ssl => 1 },
-	max_lines => 100,
+	max_lines => 3000,
 	inactivity_timeout => 60,
 	parser => 'yaptest-parse-web-check.pl'
 );
