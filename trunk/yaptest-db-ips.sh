@@ -50,6 +50,7 @@ tcp_port_based_tests () {
 nmap_service_based_tests () {
 	yaptest-ldapsearch.pl
 	yaptest-telnet-fuser.pl
+	yaptest-web-screenshot.pl
 	yaptest-nikto.pl &
 }
 

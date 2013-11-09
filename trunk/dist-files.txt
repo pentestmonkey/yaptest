@@ -167,3 +167,5 @@ yaptest-rdp-sec-check.pl
 metasploit-exploit-suggest.pl
 yaptest-metasploit-exploit-suggest.pl
 yaptest-msf-oracle-sid-guess.pl
+yaptest-web-screenshot.pl
+web-screenshot.js
