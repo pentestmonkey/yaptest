@@ -10,7 +10,7 @@ use HTTP::Request::Common qw(GET POST);
 use HTTP::Request;
 use HTTP::Cookies;
 
-# Disable checking of Nessus's SSL cert - may not be what you want.
+# Disable checking of SSL cert
 $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
 
 my $ua = LWP::UserAgent->new;
