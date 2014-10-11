@@ -1,0 +1,41 @@
+# Global Yaptest Configuration File
+#
+# This file can be used to specify default file locations
+# and other options to be used by all yaptest users on this 
+# system.  User can override these global settings by creating a
+# ~/.yaptestrc file that is more to their liking.
+#
+# The format of /etc/yaptest.conf and ~/.yaptestrc is identical.
+# 
+# Lines starting with a # are comments.
+# 
+nessus_config_template = @prefix@/share/yaptest/nessusrc-template
+nessusd_ip = 127.0.0.1
+nessusd_password = nessus
+nessusd_port = 1241
+nessusd_username = nessus
+yaptest_dbhost = 127.0.0.1
+yaptest_dbpassword =
+yaptest_dbport = 5432
+yaptest_dbtemplate = yaptest_template
+yaptest_dbuser = yaptest_user
+# yaptest_john_command = mpiexec -n 4 /some/path/john-mpi/run/john
+yaptest_dictionaries = @prefix@/share/yaptest/
+yaptest_interface = eth0
+nmap_udp_timeout = 300
+dict_ftp_passwords = @prefix@/share/yaptest/ftp-passwords.txt
+dict_ftp_usernames = @prefix@/share/yaptest/ftp-usernames.txt
+dict_mssql_passwords = @prefix@/share/yaptest/mssql-passwords.txt
+dict_mssql_usernames = @prefix@/share/yaptest/mssql-usernames.txt
+dict_rlogin_passwords = @prefix@/share/ymes = @prefix@/share/yaptest/rlogin-usernames.txt
+dict_smb_passwords = @prefix@/share/yaptest/smb-passwords.txt
+dict_smb_shares = @prefix@/share/yaptest/smb_shares.txt
+dict_smb_usernames = @prefix@/share/yaptest/smb-usernames.txt
+dict_snmp = @prefix@/share/yaptest/snmp.txt
+dict_ssh_passwords = @prefix@/share/yaptest/ssh-passwords.txt
+dict_ssh_usernames = @prefix@/share/yaptest/ssh-usernames.txt
+dict_finger_usernames = @prefix@/share/yaptest/finger-usernames.txt
+dict_smtp_usernames = @prefix@/share/yaptest/smtp-usernames.txt
+dict_tftp_files = @prefix@/share/yaptest/tftp-files.txt
+dict_mysql_usernames = @prefix@/share/yaptest/mysql-usernames.txt
+dict_mysql_passwords = @prefix@/share/yaptest/mysql-passwords.txt

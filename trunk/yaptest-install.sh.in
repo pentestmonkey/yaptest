@@ -1,0 +1,32 @@
+#!/bin/sh
+
+ETC="@sysconfdir@"
+PREFIX="@prefix@"
+INSTALL="@INSTALL@"
+
+mkdir -p -m 0755 "$DESTDIR$PREFIX/bin" "$DESTDIR$PREFIX/share/yaptest" "$DESTDIR$PREFIX/lib/site_perl" "$DESTDIR$ETC"
+
+echo "Installing program files"
+for FILE in `cat program-files.txt`; do 
+	OK="`perl -c "$FILE" 2>&1 | grep 'syntax OK'`"
+	ISPERL="`echo $FILE | grep '\.pl$'`"
+	if [ -n "$ISPERL" ] && [ -z "$OK" ]; then
+		echo "WARNING: PERL Syntax error in $FILE.  Installing anyway.";
+	fi
+	$INSTALL -m 0755 -o root -g 0 "$FILE" "$DESTDIR$PREFIX/bin"
+done
+
+echo "Installing data files"
+for FILE in `cat data-files.txt`; do 
+	$INSTALL -m 0644 -o root -g 0 "$FILE" "$DESTDIR$PREFIX/share/yaptest"
+done
+
+echo "Installing Perl modules"
+cd modules/yaptest
+perl Makefile.PL PREFIX="$PREFIX"
+make
+make install DESTDIR="$DESTDIR"
+cd ../..
+
+echo "Installing config file"
+$INSTALL -m 0644 -o root -g 0 yaptest.conf "$DESTDIR$ETC"
