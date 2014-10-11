@@ -32,47 +32,26 @@ my $is_child = 0;
 
 BEGIN {
 	# Print banner to make output less messy
-	#my $svn = '$Revision$';
-	#$svn =~ s/[^0-9]//g;
-	#if ($svn) {
-	#	$svn = "-svn-" . $svn;
-	#}
-	#our $VERSION = "0.2.1$svn";
-	#my $message1 = "Starting " . basename($0) ;
-	#my $message2 = "*  [ Using yaptest v$yaptest::VERSION - http://pentestmonkey.net/projects/yaptest ]  *";
-	#my $space_count = int((length($message2) - length($message1) - 2) / 2);
-	#my $extra_space = length($message2) - length($message1) - 2 - 2 * $space_count;
-	#$message1 = "*" . (" " x $space_count) . "$message1" . (" " x ($space_count + $extra_space)) . "*";
-	#warn "\n";
-	#warn "*" x length($message2) . "\n";
-	#warn "$message1\n";
-	#warn "$message2\n";
-	#warn "*" x length($message2) . "\n";
-	#warn "\n";
+	my $svn = '$Revision: 69 $';
+	$svn =~ s/[^0-9]//g;
+	if ($svn) {
+		$svn = "-svn-" . $svn;
+	}
+	our $VERSION = "0.2.1$svn";
+	my $message1 = "Starting " . basename($0) ;
+	my $message2 = "*  [ Using yaptest v$yaptest::VERSION - http://pentestmonkey.net/projects/yaptest ]  *";
+	my $space_count = int((length($message2) - length($message1) - 2) / 2);
+	my $extra_space = length($message2) - length($message1) - 2 - 2 * $space_count;
+	$message1 = "*" . (" " x $space_count) . "$message1" . (" " x ($space_count + $extra_space)) . "*";
+	warn "\n";
+	warn "*" x length($message2) . "\n";
+	warn "$message1\n";
+	warn "$message2\n";
+	warn "*" x length($message2) . "\n";
+	warn "\n";
 }
 
 sub new {
-
-	# Print banner to make output less messy
-        my $svn = '$Revision$';
-        $svn =~ s/[^0-9]//g;
-        if ($svn) {
-                $svn = "-svn-" . $svn;
-        }
-        our $VERSION = "0.2.1$svn";
-        my $message1 = "Starting " . basename($0) ;
-        my $message2 = "*  [ Using yaptest v$yaptest::VERSION - http://pentestmonkey.net/projects/yaptest ]  *";
-        my $space_count = int((length($message2) - length($message1) - 2) / 2);
-        my $extra_space = length($message2) - length($message1) - 2 - 2 * $space_count;
-        $message1 = "*" . (" " x $space_count) . "$message1" . (" " x ($space_count + $extra_space)) . "*";
-        warn "\n";
-        warn "*" x length($message2) . "\n";
-        warn "$message1\n";
-        warn "$message2\n";
-        warn "*" x length($message2) . "\n";
-        warn "\n";
-
-
 	my $class = shift;
 	my $newdbname = shift;
 	my $new_config_file = shift;
@@ -85,8 +64,8 @@ sub new {
 
 	# Read in the global yaptest config file if it exists.
 	# Setting in here can be overridden by user's own config file later.
-	if (-r "/etc/yaptest.conf") {
-		$self->set_config('yaptest_config_file', "/etc/yaptest.conf");
+	if (-r "@sysconfdir@/yaptest.conf") {
+		$self->set_config('yaptest_config_file', "@sysconfdir@/yaptest.conf");
 		$self->read_config();
 	}
 
@@ -114,7 +93,7 @@ sub new {
 		$self->set_config('yaptest_dbport', '5432');
 		$self->set_config('yaptest_dbhost', '127.0.0.1');
 		$self->set_config('yaptest_dbtemplate', 'yaptest_template');
-		if (-e '/etc/master.passwd') {
+		if (-e '@sysconfdir@/master.passwd') {
 			# Use en0 if we're running on OSX
 			$self->set_config('yaptest_interface', 'en0');
 		} else {
@@ -125,7 +104,7 @@ sub new {
 		$self->set_config('nessusd_port', '1241');
 		$self->set_config('nessusd_username', 'nessus');
 		$self->set_config('nessusd_password', 'nessus');
-		$self->set_config('nessus_config_template', '/usr/local/share/yaptest/nessusrc-template');
+		$self->set_config('nessus_config_template', '@prefix@/share/yaptest/nessusrc-template');
 		$self->write_config();
 	}
 

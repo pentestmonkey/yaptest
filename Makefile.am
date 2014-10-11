@@ -1,9 +1,3 @@
-DATADIR=/usr/local/share/yaptest/
-BINDIR=/usr/local/bin/
-BINDIR_MAC=/usr/local/bin/
-PERLDIR=/usr/local/lib/site_perl
-PERLDIR_MAC=/opt/local/lib/perl5/site_perl
-YAPTEST_VERSION=`echo yaptest-0.2.1`
 POSTGRES_USER=postgres
 POSTGRES_USER_MAC=postgres81
 TEMPDIR=/tmp
@@ -34,26 +28,21 @@ checkdep:
 	./yaptest-check-dependencies.sh
 
 install:
-	./yaptest-install.sh $(BINDIR) $(DATADIR) $(PERLDIR)
+	./yaptest-install.sh
 
-installmac:
-	./yaptest-install.sh $(BINDIR_MAC) $(DATADIR) $(PERLDIR_MAC)
-
-check:
-
-dist: 
-	rm -rf $(YAPTEST_VERSION)
-	mkdir $(YAPTEST_VERSION)
-	mkdir -p $(YAPTEST_VERSION)/modules/yaptest/lib
-	mkdir $(YAPTEST_VERSION)/modules/yaptest/t
-	cp modules/yaptest/README $(YAPTEST_VERSION)/modules/yaptest/
-	cp modules/yaptest/Changes $(YAPTEST_VERSION)/modules/yaptest/
-	cp modules/yaptest/Makefile.PL $(YAPTEST_VERSION)/modules/yaptest/
-	cp modules/yaptest/MANIFEST $(YAPTEST_VERSION)/modules/yaptest/
-	cp modules/yaptest/t/yaptest.t $(YAPTEST_VERSION)/modules/yaptest/t/
-	cp modules/yaptest/lib/yaptest.pm $(YAPTEST_VERSION)/modules/yaptest/lib/yaptest.pm
-	cat dist-files.txt | xargs -I FILES cp FILES $(YAPTEST_VERSION)
-	tar --owner root --group root -cz -f $(YAPTEST_VERSION).tar.gz $(YAPTEST_VERSION)
+# need to work out if we can simply use autoconf's dist creator
+#dist: 
+#	rm -rf $(YAPTEST_VERSION)
+#	mkdir $(YAPTEST_VERSION)
+#	mkdir -p $(YAPTEST_VERSION)/modules/yaptest/lib
+#	mkdir $(YAPTEST_VERSION)/modules/yaptest/t
+#	cp modules/yaptest/README $(YAPTEST_VERSION)/modules/yaptest/
+#	cp modules/yaptest/Changes $(YAPTEST_VERSION)/modules/yaptest/
+#	cp modules/yaptest/Makefile.PL $(YAPTEST_VERSION)/modules/yaptest/
+#	cp modules/yaptest/MANIFEST $(YAPTEST_VERSION)/modules/yaptest/
+#	cp modules/yaptest/t/yaptest.t $(YAPTEST_VERSION)/modules/yaptest/t/
+#	cp modules/yaptest/lib/yaptest.pm.in $(YAPTEST_VERSION)/modules/yaptest/lib/yaptest.pm.in
+#	cat dist-files.txt | xargs -I FILES cp F).tar.gz $(YAPTEST_VERSION)
 
 clean:
-	-rm yaptest-user-docs.pdf
+	rm -rf autom4te.cache config.status config.log Makefile yaptest.conf modules/yaptest/Makefile modules/yaptest/Makefile.old modules/yaptest/MYMETA.yml modules/yaptest/lib/yaptest.pm modules/yaptest/pm_to_blib modules/yaptest/blib
