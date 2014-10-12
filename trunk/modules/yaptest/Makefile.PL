@@ -10,3 +10,13 @@ WriteMakefile(
       (ABSTRACT_FROM  => 'lib/yaptest.pm', # retrieve abstract from module
        AUTHOR         => 'A. U. Thor <x@(none)>') : ()),
 );
+
+sub MY::libscan {
+	my $self = shift;
+	my($path) = @_;
+	if ($path =~ /\.in$/) {
+		return;
+	} else {
+		return $path;
+	}
+}
