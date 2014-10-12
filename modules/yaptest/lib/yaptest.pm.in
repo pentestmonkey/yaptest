@@ -66,25 +66,6 @@ sub new {
 	# Setting in here can be overridden by user's own config file later.
 	if (-r "@sysconfdir@/yaptest.conf") {
 		$self->set_config('yaptest_config_file', "@sysconfdir@/yaptest.conf");
-		$self->read_config();
-	}
-
-	if (defined($newdbname)) {
-		# Must use the config file from ~ if we're starting a new DB
-		$self->set_config('yaptest_config_file', "$ENV{'HOME'}/.yaptestrc");
-
-	} elsif (defined($ENV{'YAPTEST_CONFIG_FILE'})) {
-		# Use the config file pointed to by env var if it's set
-		$self->set_config('yaptest_config_file', $ENV{'YAPTEST_CONFIG_FILE'});
-
-	} else {
-		# Otherwise use the config file from ~
-		$self->set_config('yaptest_config_file', "$ENV{'HOME'}/.yaptestrc");
-	}
-
-	# Populate $self->{config}
-	if (-e $self->get_config('yaptest_config_file')) {
-		$self->read_config();
 	} else {
 		# Some defaults
 		$self->set_config('yaptest_dbuser', 'yaptest_user');
@@ -105,8 +86,27 @@ sub new {
 		$self->set_config('nessusd_username', 'nessus');
 		$self->set_config('nessusd_password', 'nessus');
 		$self->set_config('nessus_config_template', '@prefix@/share/yaptest/nessusrc-template');
+		$self->set_config('yaptest_config_file', "@sysconfdir@/yaptest.conf");
 		$self->write_config();
 	}
+
+	if (defined($newdbname)) {
+		# Must use the config file from ~ if we're starting a new DB
+		$self->set_config('yaptest_config_file', "$ENV{'HOME'}/.yaptestrc");
+	} elsif (defined($ENV{'YAPTEST_CONFIG_FILE'})) {
+		# Use the config file pointed to by env var if it's set
+		$self->set_config('yaptest_config_file', $ENV{'YAPTEST_CONFIG_FILE'});
+	} else {
+		# Otherwise use the config file from ~
+		$self->set_config('yaptest_config_file', "$ENV{'HOME'}/.yaptestrc");
+	}
+	
+	# Populate $self->{config}
+	if (-e $self->get_config('yaptest_config_file')) {
+		$self->read_config();
+        } else {
+                $self->write_config();
+        }
 
 	# Check if YAPTEST_DBNAME is set.  It is compulsory.
 	if ($ENV{"YAPTEST_DBNAME"}) {
