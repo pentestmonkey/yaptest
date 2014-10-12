@@ -66,6 +66,7 @@ sub new {
 	# Setting in here can be overridden by user's own config file later.
 	if (-r "@sysconfdir@/yaptest.conf") {
 		$self->set_config('yaptest_config_file', "@sysconfdir@/yaptest.conf");
+		$self->read_config();
 	} else {
 		# Some defaults
 		$self->set_config('yaptest_dbuser', 'yaptest_user');
