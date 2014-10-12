@@ -39,7 +39,7 @@ while ($file = shift) {
 		# print $_;
 		chomp $_;
 		my $line = $_;
-		next if $line =~ /Host responded with error NO SUCH NAME/;
+		#next if $line =~ /Host responded with error NO SUCH NAME/;
 		# 1.2.3.4 [public] Sun SNMP Agent, Sun-Fire-V490
 		next unless $line =~ /^(\d+\.\d+\.\d+\.\d+)\s+\[([^]]+)\]\s+(.*)/;
 		my $ip = $1;
