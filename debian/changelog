@@ -1,0 +1,12 @@
+yaptest (0.2.2-1) unstable; urgency=medium
+
+  * Added dbconfig-common integration
+  * Fixed nikto integration (fix-yaptest-nikto.pl)
+
+ -- Tim Brown <timb@nth-dimension.org.uk>  Tue, 07 Oct 2014 22:31:55 +0100
+
+yaptest (0.2.1.69-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Tim Brown <timb@nth-dimension.org.uk>  Fri, 09 May 2014 12:42:46 +0100

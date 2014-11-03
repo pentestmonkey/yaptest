@@ -1,14 +1,15 @@
-2014-10-13 yaptest x0.2.2
+2014-10-13 yaptest v0.2.2
 
 * All available yaptest-* tools will be installed
 * Tweaked web-check to check for perl on UNIX systems
 * Dependencies updated
-* yaptest-parse-onesixtyone.pl will no recognise snmpds with
+* yaptest-parse-onesixtyone.pl will now recognise snmpds with
   ACLs on the accessible OID
 * yaptest.pm will now honour the system wide defaults
 * Added some expected documents, required by autoconf
 * Install now performed using autoconf with support for
   --prefix
+* Added debian/
 
 2008-11-26 yaptest v0.2.1
 

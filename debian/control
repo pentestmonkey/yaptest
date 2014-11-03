@@ -1,0 +1,16 @@
+Source: yaptest
+Section: contrib/admin
+Priority: extra
+Maintainer: Tim Brown <timb@nth-dimension.org.uk>
+Build-Depends: debhelper (>= 8.0.0), autotools-dev
+Standards-Version: 3.9.4
+Homepage: https://code.google.com/p/yaptest
+#Vcs-Cvs: git://git.debian.org/collab-maint/yaptest.git
+#Vcs-Git: git://git.debian.org/collab-maint/yaptest.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/yaptest.git;a=summary
+
+Package: yaptest
+Architecture: all
+Depends: ${misc:Depends}, dbconfig-common, libdbd-pg-perl, libdbi-perl, libdigest-md4-perl, libexpect-perl, libfile-temp-perl, libio-pty-perl, libparallel-forkmanager-perl, libproc-simple-perl, libtemplate-perl, libxml-simple-perl, libmime-base64-perl, libcrypt-ssleay-perl, liburi-perl, libhttp-cookies-perl, libwww-perl, arp-scan, coreutils, dnsutils, fpdns, hydra, ike-scan, iputils-ping, john, ldap-utils, make, medusa, nbtscan, nfs-common, nmap, ntp, onesixtyone, openssh-client, perl, perl-base, phantomjs, postgresql-9.4, rpcbind, rstat-client, rusers, snmp, ssh, sslscan, telnet, tftp, traceroute, x11-apps, x11-utils
+Description: Yet Another Pentest
+ yaptest is a series of wrappers to help you organise a pentest
