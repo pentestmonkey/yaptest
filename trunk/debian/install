@@ -1,0 +1,2 @@
+debian/yaptest.conf usr/share/yaptest
+debian/yaptest.conf etc

@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+%:
+	dh $@  --with autotools-dev
+
+override_dh_auto_install:
+	dh_auto_install
+	install --mode=644 -D debian/yaptest.sql debian/yaptest/usr/share/dbconfig-common/data/yaptest/install-dbadmin/pgsql
+	install --mode=644 -D debian/yaptest_template.sql debian/yaptest/usr/share/dbconfig-common/data/yaptest/install/pgsql
