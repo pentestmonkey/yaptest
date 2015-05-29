@@ -1,0 +1,12 @@
+May 2015: Some notes on installing on Kali 1.1.0
+
+apt-get update
+apt-get upgrade
+git clone https://github.com/pentestmonkey/yaptest.git
+cd yaptest
+./apt-get-install-some-dependencies.sh
+./yaptest-check-dependencies.sh
+apt-get install libtemplate-perl
+... more to follow ...
+
+Also see: http://pentestmonkey.net/yaptest/installing/yaptest-installation
