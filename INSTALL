@@ -10,8 +10,6 @@ git clone https://github.com/pentestmonkey/yaptest.git
 Install some dependencies:
 cd yaptest
 ./apt-get-install-some-dependencies.sh
-apt-get install libnet-ident-perl
-apt-get install libtemplate-perl
 cpan Net::Nessus::XMLRPC.pm
 
 List missing dependencies:
@@ -53,7 +51,13 @@ install -m 0755 -o root -g root dns-grind.pl /usr/local/bin/
 
 git clone https://github.com/pentestmonkey/on
 cd on
-makecp
+make
+make install
+cd ..
+
+git clone https://github.com/pentestmonkey/yapscan
+cd yapscan
+make
 make install
 cd ..
 
