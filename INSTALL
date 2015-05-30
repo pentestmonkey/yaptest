@@ -12,6 +12,11 @@ cd yaptest
 ./apt-get-install-some-dependencies.sh
 apt-get install libnet-ident-perl
 apt-get install libtemplate-perl
+cpan Net::Nessus::XMLRPC.pm
+
+List missing dependencies:
+./configure
+make checkdep
 
 Install a few other tools:
 mkdir downloads
@@ -46,11 +51,21 @@ wget https://raw.githubusercontent.com/pentestmonkey/dns-grind/master/dns-grind.
 perl -c dns-grind.pl
 install -m 0755 -o root -g root dns-grind.pl /usr/local/bin/
 
-Check which dependencies are missing:
+git clone https://github.com/pentestmonkey/on
+cd on
+makecp
+make install
 cd ..
-./yaptest-check-dependencies.sh
+
+Check which dependencies are missing now:
+cd ..
+make checkdep
 
 There are links to some of the remaining tools here.  Go install them manually if you want to use them (optional):
 http://pentestmonkey.net/yaptest/installing/yaptest-installation
+
+Configure the database:
+/etc/init.d/postgresql start
+make database
 
 
