@@ -42,7 +42,12 @@ wget https://raw.githubusercontent.com/portcullislabs/http-dir-enum/master/http-
 perl -c http-dir-enum.pl 
 install -m 0755 -o root -g root http-dir-enum.pl /usr/local/bin/
 
+wget https://raw.githubusercontent.com/pentestmonkey/dns-grind/master/dns-grind.pl
+perl -c dns-grind.pl
+install -m 0755 -o root -g root dns-grind.pl /usr/local/bin/
+
 Check which dependencies are missing:
+cd ..
 ./yaptest-check-dependencies.sh
 
 There are links to some of the remaining tools here.  Go install them manually if you want to use them (optional):
