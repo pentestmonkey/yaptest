@@ -64,8 +64,21 @@ make checkdep
 There are links to some of the remaining tools here.  Go install them manually if you want to use them (optional):
 http://pentestmonkey.net/yaptest/installing/yaptest-installation
 
-Configure the database:
-/etc/init.d/postgresql start
+Configure the database.  Disable authentication for local connections.  Edit /etc/postgresql/9.1/main/pg_hba.conf in a text editor and set authentication to "trust" as follows:
+local   all             all                                trust
+host    all             all             127.0.0.1/32            trust
+host    all             all             ::1/128                 trust
+
+Now make sure the database is both started and restarted after the config change:
+/etc/init.d/postgresql restart
+
+Install the yaptest database:
 make database
 
+Install the yaptest program files:
+make install
 
+Test it:
+yaptest-wizard.pl
+
+Create a new database.  If this works, your database connection is functional.
