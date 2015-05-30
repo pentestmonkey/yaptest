@@ -8,12 +8,11 @@ Download yaptest using git:
 git clone https://github.com/pentestmonkey/yaptest.git
 
 Install some dependencies:
-```
 cd yaptest
 ./apt-get-install-some-dependencies.sh
 apt-get install libnet-ident-perl
 apt-get install libtemplate-perl
-```
+
 Install a few other tools:
 mkdir downloads
 cd downloads/
