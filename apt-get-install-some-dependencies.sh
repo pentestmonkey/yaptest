@@ -1,12 +1,12 @@
-# TODO not sure why these packages are directly needed by yaptest:
-#apt-get install g++
-#apt-get install libcrypt-ssleay-perl
-#apt-get install libmime-base64-perl
-#apt-get install libnet-dns-perl
-#apt-get install libnet-ldap-perl
-#apt-get install libpcap-dev
-#apt-get install libssl-dev
-#apt-get install libtemplate-perl
+apt-get install g++
+apt-get install libcrypt-ssleay-perl
+apt-get install libmime-base64-perl
+apt-get install libnet-dns-perl
+apt-get install libnet-ldap-perl
+apt-get install libpcap-dev
+apt-get install libssl-dev
+apt-get install libnet-ident-perl
+apt-get install libtemplate-perl
 apt-get install arp-scan
 apt-get install coreutils
 apt-get install dnsutils

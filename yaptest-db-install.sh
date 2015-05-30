@@ -34,10 +34,10 @@ createdb $YAPTEST_TEMPLATE_NAME
 # differently on postgres 8.2+
 PGVERSION82=`$PSQL -U postgres template1 -c 'SELECT version()' | grep 'PostgreSQL 8.[23456789]'`
 if [ -z "$PGVERSION82" ]; then
+	echo "CREATE USER yaptest_user CREATEDB ;" | $PSQL $YAPTEST_TEMPLATE_NAME
+else
 	echo "CREATE USER yaptest_user;" | $PSQL $YAPTEST_TEMPLATE_NAME
 	echo "UPDATE pg_shadow SET usecreatedb = 't' WHERE usename = 'yaptest_user';" | $PSQL $YAPTEST_TEMPLATE_NAME
-else
-	echo "CREATE USER yaptest_user CREATEDB ;" | $PSQL $YAPTEST_TEMPLATE_NAME
 fi
 cat $YAPTEST_TEMPLATE_SQL | $PSQL $YAPTEST_TEMPLATE_NAME
 

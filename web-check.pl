@@ -59,7 +59,6 @@ my @checks = (
 		body => "print \"Content-type: text/html\\n\\n\";\nprint \`id\`;"
 	},
 );
-);
 
 print "[+] Canonicalised URL: $url_dirty -> $url\n";
 

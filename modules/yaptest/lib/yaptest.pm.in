@@ -64,8 +64,8 @@ sub new {
 
 	# Read in the global yaptest config file if it exists.
 	# Setting in here can be overridden by user's own config file later.
-	if (-r "@sysconfdir@/yaptest.conf") {
-		$self->set_config('yaptest_config_file', "@sysconfdir@/yaptest.conf");
+	if (-r "/etc//yaptest.conf") {
+		$self->set_config('yaptest_config_file', "/etc/yaptest.conf");
 		$self->read_config();
 	} else {
 		# Some defaults
@@ -75,7 +75,7 @@ sub new {
 		$self->set_config('yaptest_dbport', '5432');
 		$self->set_config('yaptest_dbhost', '127.0.0.1');
 		$self->set_config('yaptest_dbtemplate', 'yaptest_template');
-		if (-e '@sysconfdir@/master.passwd') {
+		if (-e '/etc/master.passwd') {
 			# Use en0 if we're running on OSX
 			$self->set_config('yaptest_interface', 'en0');
 		} else {
@@ -87,7 +87,7 @@ sub new {
 		$self->set_config('nessusd_username', 'nessus');
 		$self->set_config('nessusd_password', 'nessus');
 		$self->set_config('nessus_config_template', '@prefix@/share/yaptest/nessusrc-template');
-		$self->set_config('yaptest_config_file', "@sysconfdir@/yaptest.conf");
+		$self->set_config('yaptest_config_file', "/etc/yaptest.conf");
 		$self->write_config();
 	}
 

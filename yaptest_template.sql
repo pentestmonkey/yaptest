@@ -750,7 +750,16 @@ CREATE VIEW view_credentials AS
 
 ALTER TABLE public.view_credentials OWNER TO postgres;
 
-create view view_host_info as SELECT test_areas.name AS test_area_name, test_areas.id AS test_area_id, hosts.id AS host_id, hosts.ip_address, host_keys.name AS "key", host_info.value FROM hosts JOIN test_areas ON hosts.test_area_id = test_areas.id JOIN host_info ON host_info.host_id = hosts.id JOIN host_keys ON host_info.host_key_id = host_keys.id ORDER BY test_areas.name, hosts.ip_address;
+create or replace view view_host_info as 
+ SELECT test_areas.name AS test_area_name, test_areas.id AS test_area_id, hosts.id AS host_id, host_info.id as host_info_id, host_key_id, hosts.ip_address, host_keys.name AS "key", host_info.value
+   FROM hosts
+   JOIN test_areas ON hosts.test_area_id = test_areas.id
+   JOIN host_info ON host_info.host_id = hosts.id
+   JOIN host_keys ON host_info.host_key_id = host_keys.id
+  ORDER BY test_areas.name, hosts.ip_address;
+grant select on view_host_info to yaptest_user;
+
+-- create view view_host_info as SELECT test_areas.name AS test_area_name, test_areas.id AS test_area_id, hosts.id AS host_id, hosts.ip_address, host_keys.name AS "key", host_info.value FROM hosts JOIN test_areas ON hosts.test_area_id = test_areas.id JOIN host_info ON host_info.host_id = hosts.id JOIN host_keys ON host_info.host_key_id = host_keys.id ORDER BY test_areas.name, hosts.ip_address;
 
 --
 -- Name: view_host_info; Type: ACL; Schema: public; Owner: postgres
@@ -1008,7 +1017,6 @@ create view view_groups as SELECT test_areas.name AS group_test_area_name, test_
 
 grant select on view_groups to yaptest_user;
 
-drop view view_mac_addresses;
 create or replace view view_mac_addresses as SELECT test_areas.name AS test_area_name, test_areas.id AS test_area_id, hosts.ip_address, hosts.id AS host_id, mac_addresses.mac_address, value as mac_vendor from hosts_to_mac_addresses JOIN mac_addresses ON hosts_to_mac_addresses.mac_address_id = mac_addresses.id JOIN hosts ON hosts_to_mac_addresses.host_id = hosts.id JOIN test_areas ON test_areas.id = hosts.test_area_id left join view_host_info on hosts.id = view_host_info.host_id and view_host_info.key = 'mac_vendor';
 grant select on view_mac_addresses to yaptest_user;
 
@@ -1352,19 +1360,7 @@ create view view_nmap_info as SELECT p1.value, p1.port_info_id, p1.port_info_key
 
 grant select on view_nmap_info to yaptest_user;
 
-drop view view_hosts_ytfe;
 drop view view_windows_host_info;
-drop view view_host_info;
-
-create or replace view view_host_info as 
- SELECT test_areas.name AS test_area_name, test_areas.id AS test_area_id, hosts.id AS host_id, host_info.id as host_info_id, host_key_id, hosts.ip_address, host_keys.name AS "key", host_info.value
-   FROM hosts
-   JOIN test_areas ON hosts.test_area_id = test_areas.id
-   JOIN host_info ON host_info.host_id = hosts.id
-   JOIN host_keys ON host_info.host_key_id = host_keys.id
-  ORDER BY test_areas.name, hosts.ip_address;
-grant select on view_host_info to yaptest_user;
-
 create or replace view view_hosts_ytfe as
 select view_hosts.host_id, view_hosts.test_area_id, view_hosts.test_area_name, view_hosts.ip_address, hostname, name_type, hi1.value as finished, hi2.value as owned
 from view_hosts
