@@ -11,6 +11,6 @@ Homepage: https://code.google.com/p/yaptest
 
 Package: yaptest
 Architecture: all
-Depends: ${misc:Depends}, dbconfig-common, libdbd-pg-perl, libdbi-perl, libdigest-md4-perl, libexpect-perl, libfile-temp-perl, libio-pty-perl, libparallel-forkmanager-perl, libproc-simple-perl, libtemplate-perl, libxml-simple-perl, libmime-base64-perl, libcrypt-ssleay-perl, liburi-perl, libhttp-cookies-perl, libwww-perl, arp-scan, coreutils, dnsutils, fpdns, hydra, ike-scan, iputils-ping, john, ldap-utils, make, medusa, nbtscan, nfs-common, nmap, ntp, onesixtyone, openssh-client, perl, perl-base, phantomjs, postgresql-9.4, rpcbind, rstat-client, rusers, snmp, ssh, sslscan, telnet, tftp, traceroute, x11-apps, x11-utils
+Depends: ${misc:Depends}, dbconfig-common, libdbd-pg-perl, libdbi-perl, libdigest-md4-perl, libexpect-perl, libfile-temp-perl, libio-pty-perl, libparallel-forkmanager-perl, libproc-simple-perl, libtemplate-perl, libxml-simple-perl, libmime-base64-perl, libcrypt-ssleay-perl, liburi-perl, libhttp-cookies-perl, libwww-perl, arp-scan, coreutils, dnsutils, fpdns, hydra, ike-scan, iputils-ping, john, ldap-utils, make, medusa, nbtscan, nfs-common, nmap, ntp, onesixtyone, openssh-client, perl, perl-base, phantomjs, postgresql-9.6, rpcbind, rstat-client, rusers, snmp, ssh, sslscan, telnet, tftp, traceroute, x11-apps, x11-utils
 Description: Yet Another Pentest
  yaptest is a series of wrappers to help you organise a pentest
