@@ -1,9 +1,15 @@
-yaptest (0.2.2-1) unstable; urgency=medium
+yaptest (0.2.2-2) pcsl-rolling; urgency=medium
+
+  * Changed postgresql-9.4 to postgresql-9.6
+
+ -- Tim Brown <timb@nth-dimension.org.uk>  Sun, 08 Jan 2017 11:06:25 +0000
+
+yaptest (0.2.2-1) pcsl-rolling; urgency=medium
 
   * Added dbconfig-common integration
   * Fixed nikto integration (fix-yaptest-nikto.pl)
 
- -- Tim Brown <timb@nth-dimension.org.uk>  Tue, 07 Oct 2014 22:31:55 +0100
+ -- Tim Brown <timb@nth-dimension.org.uk>  Sun, 08 Jan 2017 10:39:30 +0000
 
 yaptest (0.2.1.69-1) unstable; urgency=low
 
