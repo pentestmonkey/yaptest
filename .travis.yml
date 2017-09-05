@@ -1,7 +1,9 @@
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install -y devscripts debhelper autotools-dev
+  - sudo apt-get install -y debuild devscripts debhelper autotools-dev
 
 script: ./configure && make
 
-script: debuild -i -us -uc --no-tgz-check
+script:
+  - tar zcvf ../yaptest.$(dpkg-parsechangelog -S Version | cut -f 1 -d-).orig.tar.gz . --exclude debian --exclude .git
+  - debuild -i -us -uc
