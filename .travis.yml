@@ -1,3 +1,1 @@
-language: perl
-
 script: ./configure && make
