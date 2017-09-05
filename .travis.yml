@@ -1,12 +1,10 @@
-before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -y devscripts debhelper autotools-dev
+env:
+  BUILD_END="src"
+  BUILD_ENV="deb"
 
-jobs:
-  include:
-    stage: src
-      script: ./configure && make
-    stage: deb
-      script:
-        - tar zcvf ../yaptest_$(dpkg-parsechangelog -SVersion | cut -f 1 -d "-").orig.tar.gz . --exclude debian --exclude .git
-        - debuild -i -us -uc
+before_install:
+  - [ ${BUILD_ENV} == "deb" ] && sudo apt-get -qq update && sudo apt-get install -y devscripts debhelper autotools-dev
+
+script:
+  - [ ${BUILD_ENV} == "src" ] && ./configure && make
+  - [ ${BUILD_ENV} == "deb" ] && tar zcvf "../yaptest_$(dpkg-parsechangelog -SVersion | cut -f 1 -d \"-\").orig.tar.gz" . --exclude debian --exclude .git && debuild -i -us -uc
