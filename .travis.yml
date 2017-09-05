@@ -7,4 +7,4 @@ before_install:
 
 script:
   - test $BUILD_ENV == "src" && ./configure && make
-  - test $BUILD_ENV == "deb" && tar zcvf "../yaptest_$(dpkg-parsechangelog -SVersion | cut -f 1 -d \"-\").orig.tar.gz" . --exclude debian --exclude .git && debuild -i -us -uc
+  - test $BUILD_ENV == "deb" && tar zcvf "../yaptest_$(dpkg-parsechangelog -SVersion | cut -f 1 -d "-").orig.tar.gz" . --exclude debian --exclude .git && debuild -i -us -uc
