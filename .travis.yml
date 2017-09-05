@@ -4,7 +4,9 @@ before_install:
 
 jobs:
   include:
-    script: ./configure && make
-    script:
-      - tar zcvf ../yaptest_$(dpkg-parsechangelog -SVersion | cut -f 1 -d "-").orig.tar.gz . --exclude debian --exclude .git
-      - debuild -i -us -uc
+    stage: src
+      script: ./configure && make
+    stage: deb
+      script:
+        - tar zcvf ../yaptest_$(dpkg-parsechangelog -SVersion | cut -f 1 -d "-").orig.tar.gz . --exclude debian --exclude .git
+        - debuild -i -us -uc
