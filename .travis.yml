@@ -3,7 +3,7 @@ env:
   - BUILD_ENV="deb"
 
 before_install:
-  - test $BUILD_ENV = "deb" && sudo apt-get -qq update && sudo apt-get install -y devscripts debhelper autotools-dev
+  - test $BUILD_ENV = "deb" && sudo apt-get -qq update && sudo apt-get install -y devscripts debhelper automake
 
 script:
   - test $BUILD_ENV = "src" && ./configure && make
