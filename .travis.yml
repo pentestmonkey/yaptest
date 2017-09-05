@@ -3,6 +3,7 @@ env:
   - BUILD_ENV="deb"
 
 before_install:
+  - echo Forcing a build
   - [ $BUILD_ENV = "deb" ] && sudo apt-get -qq update && sudo apt-get install -y devscripts debhelper autotools-dev
 
 script:
