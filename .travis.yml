@@ -4,4 +4,4 @@ before_install:
 
 script: ./configure && make
 
-script: debuild -i -us -uc
+script: debuild -i -us -uc --no-tgz-check
