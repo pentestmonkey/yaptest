@@ -1,6 +1,6 @@
 env:
-  BUILD_END="src"
-  BUILD_ENV="deb"
+  - BUILD_ENV="src"
+  - BUILD_ENV="deb"
 
 before_install:
   - test $BUILD_ENV == "deb" && sudo apt-get -qq update && sudo apt-get install -y devscripts debhelper autotools-dev
