@@ -3,8 +3,8 @@ env:
   BUILD_ENV="deb"
 
 before_install:
-  - [ ${BUILD_ENV} == "deb" ] && sudo apt-get -qq update && sudo apt-get install -y devscripts debhelper autotools-dev
+  - test $BUILD_ENV == "deb" && sudo apt-get -qq update && sudo apt-get install -y devscripts debhelper autotools-dev
 
 script:
-  - [ ${BUILD_ENV} == "src" ] && ./configure && make
-  - [ ${BUILD_ENV} == "deb" ] && tar zcvf "../yaptest_$(dpkg-parsechangelog -SVersion | cut -f 1 -d \"-\").orig.tar.gz" . --exclude debian --exclude .git && debuild -i -us -uc
+  - test $BUILD_ENV == "src" && ./configure && make
+  - test $BUILD_ENV == "deb" && tar zcvf "../yaptest_$(dpkg-parsechangelog -SVersion | cut -f 1 -d \"-\").orig.tar.gz" . --exclude debian --exclude .git && debuild -i -us -uc
