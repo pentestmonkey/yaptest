@@ -1,0 +1,88 @@
+May 2015: Some notes on installing on Kali 1.1.0
+
+Make sure system is up to date first:
+apt-get update
+apt-get upgrade
+
+Download yaptest using git:
+git clone https://github.com/pentestmonkey/yaptest.git
+
+Install some dependencies:
+cd yaptest
+./apt-get-install-some-dependencies.sh
+cpan Net::Nessus::XMLRPC.pm
+
+List missing dependencies:
+./configure
+make checkdep
+
+Install a few other tools:
+mkdir downloads
+cd downloads/
+
+wget https://raw.githubusercontent.com/portcullislabs/rdp-sec-check/master/rdp-sec-check.pl
+cpan Encoding::BER
+perl -c rdp-sec-check.pl
+install -m 0755 -o root -g root rdp-sec-check.pl /usr/local/bin/
+
+wget https://raw.githubusercontent.com/portcullislabs/ssl-cipher-suite-enum/master/ssl-cipher-suite-enum.pl
+perl -c ssl-cipher-suite-enum.pl 
+install -m 0755 -o root -g root ssl-cipher-suite-enum.pl /usr/local/bin/
+
+wget https://raw.githubusercontent.com/pentestmonkey/finger-user-enum/master/finger-user-enum.pl
+perl -c finger-user-enum.pl 
+install -m 0755 -o root -g root finger-user-enum.pl /usr/local/bin/
+
+wget https://raw.githubusercontent.com/pentestmonkey/ident-user-enum/master/ident-user-enum.pl
+perl -c ident-user-enum.pl 
+install -m 0755 -o root -g root ident-user-enum.pl /usr/local/bin/
+
+wget https://raw.githubusercontent.com/pentestmonkey/smtp-user-enum/master/smtp-user-enum.pl
+perl -c smtp-user-enum.pl 
+install -m 0755 -o root -g root smtp-user-enum.pl /usr/local/bin/
+
+wget https://raw.githubusercontent.com/portcullislabs/http-dir-enum/master/http-dir-enum.pl
+perl -c http-dir-enum.pl 
+install -m 0755 -o root -g root http-dir-enum.pl /usr/local/bin/
+
+wget https://raw.githubusercontent.com/pentestmonkey/dns-grind/master/dns-grind.pl
+perl -c dns-grind.pl
+install -m 0755 -o root -g root dns-grind.pl /usr/local/bin/
+
+git clone https://github.com/pentestmonkey/on
+cd on
+make
+make install
+cd ..
+
+git clone https://github.com/pentestmonkey/yapscan
+cd yapscan
+make
+make install
+cd ..
+
+Check which dependencies are missing now:
+cd ..
+make checkdep
+
+There are links to some of the remaining tools here.  Go install them manually if you want to use them (optional):
+http://pentestmonkey.net/yaptest/installing/yaptest-installation
+
+Configure the database.  Disable authentication for local connections.  Edit /etc/postgresql/9.1/main/pg_hba.conf in a text editor and set authentication to "trust" as follows:
+local   all             all                                trust
+host    all             all             127.0.0.1/32            trust
+host    all             all             ::1/128                 trust
+
+Now make sure the database is both started and restarted after the config change:
+/etc/init.d/postgresql restart
+
+Install the yaptest database:
+make database
+
+Install the yaptest program files:
+make install
+
+Test it:
+yaptest-wizard.pl
+
+Create a new database.  If this works, your database connection is functional.
