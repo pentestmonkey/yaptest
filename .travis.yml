@@ -3,7 +3,8 @@ env:
   - BUILD_ENV="deb"
 
 before_install:
-  - if [ $BUILD_ENV = "deb" ]; then sudo apt-get -qq update; sudo apt-get install -y devscripts debhelper automake; fi
+  - sudo apt-get install -y automake autoconf
+  - if [ $BUILD_ENV = "deb" ]; then sudo apt-get -qq update; sudo apt-get install -y devscripts debhelper; fi
 
 script:
   - if [ $BUILD_ENV = "src" ]; then autoreconf --force --install; ./configure; make; fi

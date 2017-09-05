@@ -2,7 +2,7 @@ Source: yaptest
 Section: contrib/admin
 Priority: extra
 Maintainer: Tim Brown <timb@nth-dimension.org.uk>
-Build-Depends: debhelper (>= 8.0.0), autotools-dev
+Build-Depends: debhelper (>= 8.0.0)
 Standards-Version: 3.9.4
 Homepage: https://code.google.com/p/yaptest
 #Vcs-Cvs: git://git.debian.org/collab-maint/yaptest.git
