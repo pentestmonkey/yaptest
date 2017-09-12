@@ -1,0 +1,13 @@
+env:
+  - BUILD_ENV="src"
+  - BUILD_ENV="deb"
+
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y automake autoconf
+  - if [ $BUILD_ENV = "deb" ]; then sudo apt-get install -y devscripts debhelper; fi
+
+script:
+  - autoreconf --force --install
+  - if [ $BUILD_ENV = "src" ]; then ./configure; make; fi
+  - if [ $BUILD_ENV = "deb" ]; then tar zcvf "../yaptest_$(dpkg-parsechangelog -SVersion | cut -f 1 -d "-").orig.tar.gz" . --exclude debian --exclude .git; debuild -i -us -uc; fi
